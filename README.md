@@ -5,4 +5,4 @@
 基于项目创建的集合在nodeDemo、reactDemo、vueDemo共用
 
 # 项目列表
-+ [ 招聘项目 ](https://github.com/fremember/tree/master/zhaopin) 
++ [ 招聘项目 ](https://github.com/fremember/vueDemos/tree/master/zhaopin) 
