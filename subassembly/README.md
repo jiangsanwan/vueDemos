@@ -20,4 +20,4 @@ npm run build
 ```
 npm run lint
 ```
-+ [ 分页组件 ](https://github.com/fremember/vueDemos/tree/master/subassembly)
++ [ 分页组件 ](https://github.com/fremember/vueDemos/blob/master/subassembly/src/views/paging/index.vue)
