@@ -28,6 +28,9 @@
 		}
 		.menu-cont {
 			padding: 0 20px
+			a:hover {
+				color: #8ac78f;
+			}
 		}
 	}
 </style>

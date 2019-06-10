@@ -3,12 +3,12 @@
 		<ul class="pagination">
 			<li>
 				<div>
-					显示 {{ total > 0 ? pagegroup * (current - 1) + 1 : 0 }}-{{ pagegroup * current < total ? pagegroup * current : total }} 项<span class="ml20px">共 {{ total }} 项</span>
+					显示 {{ total > 0 ? selectNum * (current - 1) + 1 : 0 }}-{{ selectNum * current < total ? selectNum * current : total }} 项<span class="ml20px">共 {{ total }} 项</span>
 				</div>
 			</li>
 			<li class="page-item">
 				<div class="n-p" :class="{'disabled': current == 1, 'cursorp': current != 1}" @click="setCurrent(current - 1)">上一页</div>
-				<div class="cursorp" v-for="p in grouplist" :class="{'active': current == p.val}" @click="setCurrent(p.val)"> {{ p.text }} </div>
+				<div class="cursorp" v-for="p in grouplist" :class="{'active': current == p.val}" :key="p.val" @click="setCurrent(p.val)"> {{ p.text }} </div>
 				<div class="n-p" :class="{'disabled': current == page, 'cursorp': current != page}" @click="setCurrent(current + 1)">下一页</div>
 			</li>
 		</ul>
@@ -22,7 +22,7 @@
 				// currentPage: 1,
 				current: 1,
 				inputPage: null,
-				selectNum: 10,
+				selectNum: 20,
 				numbers: [10, 20, 50, 100]
 			}
 		},
@@ -53,12 +53,12 @@
 				if (len <= this.pagegroup) {
 					while (len--) {
 						temp.push({text: this.page - len, val: this.page - len});
-					};
+					}
 					return temp;
 				}
 				while (len--) {
 					temp.push(this.page - len);
-				};
+				}
 				var idx = temp.indexOf(center);
 				(idx < count) && ( center = center + count - idx);
 				(this.current > this.page - count) && ( center = this.page - count);
@@ -68,8 +68,8 @@
 					list.push({
 						text: t,
 						val: t
-					});
-				} while (temp.length);
+					})
+				} while (temp.length)
 				if (this.page > this.pagegroup) {
 					(this.current > count + 1) && list.unshift({text: '...', val: list[0].val - 1});
 					(this.current > count + 1) && list.unshift({text: '1', val: 1});
