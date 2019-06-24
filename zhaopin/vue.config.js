@@ -5,7 +5,7 @@ module.exports = {
 		port: 1214,
 		proxy: {
 			'/api': {
-				target: 'https://test.topgate.io',
+				target: 'http://127.0.0.1:9093',
 				ws: true,
 				changeOrigin: true,
 				pathRewrite: {

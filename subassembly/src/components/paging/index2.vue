@@ -3,19 +3,19 @@
 		<ul class="pagination">
 			<li>
 				<div>
-					显示 {{ total > 0 ? _pageSize * (_pageNum - 1) + 1 : 0 }}-{{ _pageSize * _pageNum < total ? _pageSize * _pageNum : total }} 项<span class="ml20px">共 {{ total }} 项</span>
+					显示 {{ total > 0 ? size * (num - 1) + 1 : 0 }}-{{ size * num < total ? size * num : total }} 项<span class="ml20px">共 {{ total }} 项</span>
 				</div>
 			</li>
 			<li class="page-item">
-				<div class="s-wrapper">
-					<div class="cont" @click="showSelect = true">{{ _pageSize }}条/页</div>
+				<div class="s-wrapper" v-show="pageSizes">
+					<div class="cont" @click="showSelect = true">{{ size }}条/页</div>
 					<ul v-show="showSelect">
-						<li :class="{'active': _pageSize == item.value}" v-for="item in _pageSizes" :key="item.value" @click="selectFn(item)">{{ item.label }}</li>
+						<li :class="{'active': size == item.value}" v-for="item in sizes" :key="item.value" @click="selectFn(item)">{{ item.label }}</li>
 					</ul>
 				</div>
-				<div class="n-p" :class="{'disabled': _pageNum == 1, 'cursorp': _pageNum != 1}" @click="setCurrent(_pageNum - 1)">上一页</div>
-				<div class="cursorp" v-for="p in grouplist" :class="{'active': _pageNum == p.val}" @click="setCurrent(p.val)"> {{ p.text }} </div>
-				<div class="n-p" :class="{'disabled': _pageNum == page, 'cursorp': _pageNum != page}" @click="setCurrent(_pageNum + 1)">下一页</div>
+				<div class="n-p" :class="{'disabled': num == 1, 'cursorp': num != 1}" @click="setCurrent(num - 1)">上一页</div>
+				<div class="cursorp" v-for="p in grouplist" :key="p.val" :class="{'active': num == p.val}" @click="setCurrent(p.val)"> {{ p.text }} </div>
+				<div class="n-p" :class="{'disabled': num == page, 'cursorp': num != page}" @click="setCurrent(num + 1)">下一页</div>
 			</li>
 		</ul>
 	</div>
@@ -27,8 +27,8 @@
 			return {
 				inputPage: null,
 				selectNum: 10,
-				_pageSize: 0,
-				_pageNum: 0,
+				size: 0,
+				num: 0,
 				showSelect: false,
 				grouplist: []
 			}
@@ -48,7 +48,7 @@
 			},
 			pageSizes: {// 每页显示条数数组
 				type: Array,
-				default: [10, 20, 50, 100]
+				default: []
 			},
 			pagegroup: {// 分页条数
 				type: Number,
@@ -60,10 +60,10 @@
 			}
 		},
 		computed: {
-			_pageSizes () {// 初始化每页显示条数下拉列表
+			sizes () {// 初始化每页显示条数下拉列表
 				if(!this.pageSizes) return null;
 				let res = [];
-				this.pageSizes.forEach((v, i, arr) => {
+				this.pageSizes.forEach((v) => {
 					let item = {};
 					item.label = `${v}条/页`;
 					item.value = v;
@@ -75,18 +75,18 @@
 				return Math.ceil(this.total / this.selectNum);
 			}
 		},
-		created() {
-			this._pageSize = this.pageSize;
-			this._pageNum = this.pageNum;
+		mounted() {
+			this.size = this.pageSize;
+			this.num = this.pageNum;
 			this.grouplist = this._grouplist();
 		},
 		methods: {
 			_grouplist () { // 获取分页页码
-				var len = this.page, temp = [], list = [], count = Math.floor(this.pagegroup / 2), center = this._pageNum;
+				var len = this.page, temp = [], list = [], count = Math.floor(this.pagegroup / 2), center = this.num;
 				if (len <= this.pagegroup) {
 					while (len--) {
 						temp.push({text: this.page - len, val: this.page - len});
-					};
+					}
 					return temp;
 				}
 				while (len--) {
@@ -94,34 +94,36 @@
 				}
 				var idx = temp.indexOf(center);
 				(idx < count) && ( center = center + count - idx);
-				(this._pageNum > this.page - count) && ( center = this.page - count);
+				(this.num > this.page - count) && ( center = this.page - count);
 				temp = temp.splice(center - count - 1, this.pagegroup);
 				do {
 					var t = temp.shift();
 					list.push({
 						text: t,
 						val: t
-					});
+					})
 				} while (temp.length)
 				if (this.page > this.pagegroup) {
-					(this._pageNum > count + 1) && list.unshift({text: '...', val: list[0].val - 1});
-					(this._pageNum > count + 1) && list.unshift({text: '1', val: 1});
-					(this._pageNum < this.page - count) && list.push({text: '...', val: list[list.length - 1].val + 1});
-					(this._pageNum < this.page - count) && list.push({text: this.page, val: this.page});
+					(this.num > count + 1) && list.unshift({text: '...', val: list[0].val - 1});
+					(this.num > count + 1) && list.unshift({text: '1', val: 1});
+					(this.num < this.page - count) && list.push({text: '...', val: list[list.length - 1].val + 1});
+					(this.num < this.page - count) && list.push({text: this.page, val: this.page});
 				}
 				return list;
 			},
 			setCurrent (idx) {
-				if (this._pageNum != idx && idx > 0 && idx < this.page + 1) {
-					this._pageNum = idx;
-					this.$emit('pageNumChange', this._pageNum);
+				if (this.num != idx && idx > 0 && idx < this.page + 1) {
+					this.num = idx;
+					this.$emit('pageNumChange', this.num);
 				}
 			},
 			selectFn (item) {
-				this._pageSize = item.value
+				this.size = item.value
 				this.showSelect = false
+				this.selectNum = this.size
+				this.num = 1;
 				this.grouplist = this._grouplist();
-				this.$emit('pageSizeChange', this._pageSize);
+				this.$emit('pageSizeChange', this.size);
 			}
 		}
 	}
@@ -152,7 +154,7 @@
 					border: 1px solid #e6e6e6;
 					border-right: none;
 					&.n-p {
-						padding: 0 34px 0 30px;
+						padding: 0 20px;
 						&:first-child {
 							border-radius: 3px 0 0 3px;
 						}

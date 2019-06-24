@@ -128,7 +128,7 @@
 					border: 1px solid #e6e6e6;
 					border-right: none;
 					&.n-p {
-						padding: 0 34px 0 30px;
+						padding: 0 20px;
 					}
 					&:first-child {
 						border-radius: 2px 0 0 2px;

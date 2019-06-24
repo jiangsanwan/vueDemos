@@ -87,7 +87,7 @@
 				singleNumberArr: new Array(35).fill(0),
 
 
-				newMax: 100,
+				newMax: 2000,
 				newArr: [],
 				pagingIndexNew: 2,
 				curNewArr: [],

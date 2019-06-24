@@ -5,3 +5,32 @@
 .flex_1 {
 	flex: 1;
 }
+.mine-mt-field .mint-cell-title {
+	width: .65rem;
+}
+.mine-mt-field .mint-cell-value {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#d9d9d9), color-stop(50%, #d9d9d9), color-stop(50%, transparent));
+    background-image: linear-gradient(180deg, #d9d9d9, #d9d9d9 50%, transparent 50%);
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    min-height: inherit;
+}
+.mine-mt-radio {
+	padding: 0 10px;
+	align-items: center;
+}
+.mine-mt-radio .mint-radiolist-title {
+	margin: 0;
+	width: .65rem;
+	color: #000;
+	font-size: .14rem;
+}
+.mine-mt-radio .mint-radiolist-label {
+	padding: 0;
+}
+.mine-mt-field .mint-cell-wrapper,
+.mine-mt-radio .mint-cell-wrapper,
+.mine-mt-radio .mint-cell:last-child {
+	background: transparent;
+}

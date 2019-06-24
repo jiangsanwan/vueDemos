@@ -1,78 +1,121 @@
 <template>
-	<div class="login">
-		<!-- 跳过渲染，直接显示插值表达式 -->
-		<!-- <span v-pre>{{ this will not be compiled }}</span> -->
-
-		<img :src="logoImg" alt="">
-		<!-- 插槽使用一、作用域插槽 -->
-		<!-- <v-slot url="http://baidu.com">
-			<h1>pxy</h1>
-			http://baidu.com
-			{{ user.name }}
-		</v-slot> -->
-
-		<!-- 插槽使用二 -->
-		<!-- <v-slot>
-			<header><span slot="header"></span></header>
-			<main><span slot="main"></span></main>
-			<footer><span slot="footer"></span></footer>
-		</v-slot> -->
-
-		<!-- 插槽使用三 -->
-		<!-- <v-slot>
-			<template v-slot:header>
-				<h1>Here might be a page title</h1>
-			</template>
-			<p>A paragraph for the main content.</p>
-			<p>And another one.</p>
-			<template v-slot:footer>
-				<p>Here's some contact info</p>
-			</template>
-		</v-slot> -->
-
-		<!-- 插槽使用四 -->
-		<v-slot>
-			<template v-slot:header>
-				<h1>Here might be a page title</h1>
-			</template>
-			<template v-slot:default>
-				<p>A paragraph for the main content.</p>
-				<p>And another one.</p>
-			</template>
-			<template v-slot:footer>
-				<p>Here's some contact info</p>
-			</template>
-		</v-slot>
-	</div>
+	<div class="login-register">
+		<div class="l-r-wrapper">
+			<div class="logo">
+				<img :src="logoImg" alt="">
+			</div>
+            <div class="inputs">
+				<h2 class="title">用户登录</h2>
+                <mt-field
+                    class="mine-mt-field"
+                    label="用户名"
+                    v-model="loginObj.user"
+                    type="text"
+                    placeholder="用户名"
+                    :state="loginStatus.user"
+                    @blur.native.capture="checkUser"
+                ></mt-field>
+				<mt-field
+                    class="mine-mt-field"
+                    label="登录密码"
+                    v-model="loginObj.pwd"
+                    placeholder="登录密码"
+                    type="password"
+                    :state="loginStatus.pwd"
+                    @blur.native.capture="checkPwd1"
+                ></mt-field>
+				<mt-radio
+                    class="flex mine-mt-radio"
+                    title="用户类型"
+                    v-model="loginObj.type"
+                    :options="['Genius', 'Boss']"
+                ></mt-radio>
+				<ul class="flex mt01rem">
+					<li class="flex_1">
+                        <mt-button size="large" type="default" @click="loginEvent(0)">取消</mt-button>
+                    </li>
+					<li class="flex_1 ml03rem">
+                        <mt-button size="large" type="primary" @click="loginEvent(1)">确认</mt-button>
+                    </li>
+				</ul>
+            </div>
+        </div>
+    </div>
 </template>
 <script>
-	import logo from '@/assets/imgs/logo.png'
-	import vSlot from './v-slot/index'
-	export default {
-		name: 'login',
-		components: { vSlot },
+    import logo from '@/assets/imgs/logo.png'
+    import { resetStatus } from '@/utils/common'
+    import { mapState, mapActions } from 'vuex'
+    import { sha256 } from 'utility'
+    export default {
+		name: 'Login',
+		computed: {
+			...mapState({
+				duration: state => state.duration
+			}),
+		},
 		data () {
 			return {
-				logoImg: logo,
-				header: 'def',
-				user: {
-					name: 'pxy'
-				}
-			}
-		}
-	}
+                logoImg: logo,
+                loginObj: {
+					user: '',
+					pwd: '',
+					type: ''
+                },
+                loginStatus: {
+                    user: '',
+					pwd: ''
+                }
+            }
+        },
+        methods: {
+            r_reset () {
+				resetStatus(this.loginObj, '')
+                resetStatus(this.loginStatus, '')
+            },
+            showToast (msg, type) {
+                if(!this.loginObj[type]) {
+                    this.loginStatus[type] = 'error'
+                    this.$toast({ message: msg, position: 'middle', duration: this.duration })
+                } else {
+                    this.loginStatus[type] = 'success'
+                }
+            },
+            checkUser () {// 验证用户名是否存在
+                this.showToast('请输入用户名', 'user')
+            },
+            checkPwd1 () {
+                this.showToast('请输入登录密码', 'pwd')
+            },
+            loginEvent (index) {
+                if(index == 0) {// 取消登录
+                    this.r_reset()
+                } else {// 具体登录事件
+                    if(!this.loginObj.type) {
+                        this.showToast('请选择登录用户类型', 'type')
+                        return
+                    }
+                    let data = { ...this.loginObj }
+                    data.pwd = sha256(data.pwd)
+                    this.$store.dispatch('login', data)
+                    .then(d => {
+                        this.$toast({ message: d.data.message, position: 'middle', duration: this.duration })
+                        if(d.data.code == 0) {
+                            this.$store.state.userInfo = { ...d.data.data }
+                            // this.$router.push('/')
+                        } else {
+                            this.loginStatus.user = 'error'
+					        this.loginStatus.pwd = 'error'
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                }
+            }
+        }
+    }
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
-	@import './../../assets/stylus/one'
-	.login {
-		.div {
-			width: 1rem;
-			height: 1rem;
-			background: pink;
-			border-radius(50%);
-		}
-		.div2 {
-			thin-width(100%, #f00)
-		}
-	}
+	@import './../../assets/stylus/login_register'
 </style>

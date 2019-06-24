@@ -17,7 +17,17 @@ export default new Router({
 		{
 			path: '/paging',
 			name: 'Paging',
-			component: () => import('@/views/paging/index')
+			component: () => import('@/views/components/paging/index')
+		},
+		{
+			path: '/paging2',
+			name: 'Paging2',
+			component: () => import('@/views/components/paging2/index')
+		},
+		{
+			path: '/v-slot',
+			name: 'VSlot',
+			component: () => import('@/views/attributes/vslot/index')
 		}
 	]
 })

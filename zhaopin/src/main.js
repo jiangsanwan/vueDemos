@@ -3,6 +3,13 @@ import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 
+import Mint from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.use(Mint);
+
+import request from './utils/request.js'
+Vue.prototype.$ajax = request
+
 import '@/assets/css/reset.css'
 import '@/assets/css/common.css'
 

@@ -1,0 +1,52 @@
+@import './reset'
+.login-register {
+	position(fixed)
+	top(50%)
+	left(50%)
+	transform(-50%, -50%)
+	width: 80%
+	box-shadow: 0 0 0.1rem .01rem #999
+	border-radius(0.1rem)
+	.l-r-wrapper {
+		position(relative)
+		padding(0.15rem)
+		width: 100%
+		bg(#fff)
+		border-radius(0.1rem)
+		&:after {
+			content: ''
+			position(absolute)
+			all(-0.03rem)
+			bg(linear-gradient(90deg, #34c6d2, #e5ec89, #54a594, #8dacb3))
+			border-radius(0.1rem)
+			zindex(-1)
+		}
+		.logo {
+			position(absolute);
+			top(0);
+			left(50%);
+			transform(-50%, -70%);
+			width: 80%;
+			bg(#fff);
+			img {
+				width: 100%
+			}
+		}
+		.inputs {
+			.title {
+				text-align(center)
+				line-height: .48rem
+				font-size: .18rem
+				background: linear-gradient(90deg, #34c6d2, #e5ec89, #54a594, #8dacb3) 
+				-webkit-background-clip: text
+				-webkit-text-fill-color: transparent
+			}
+			.mt01rem{
+				margin-top: .1rem
+			}
+			.ml03rem{
+				margin-left: .3rem
+			}
+		}
+	}
+}
