@@ -5,9 +5,11 @@ import store from './store/index'
 
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
-Vue.use(Mint);
+Vue.use(Mint)
 
-import request from './utils/request.js'
+import '@/assets/font/iconfont.css'
+
+import request from '@/utils/request.js'
 Vue.prototype.$ajax = request
 
 import '@/assets/css/reset.css'
