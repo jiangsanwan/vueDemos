@@ -102,7 +102,13 @@
                         this.$toast({ message: d.data.message, position: 'middle', duration: this.duration })
                         if(d.data.code == 0) {
                             this.$store.state.userInfo = { ...d.data.data }
-                            // this.$router.push('/')
+                            let url = ''
+                            if(d.data.data.type == 'Genius') {
+                                url = '/genius'
+                            } else {
+                                url = '/boss'
+                            }
+                            this.$router.push(url)
                         } else {
                             this.loginStatus.user = 'error'
 					        this.loginStatus.pwd = 'error'

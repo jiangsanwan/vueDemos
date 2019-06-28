@@ -34,3 +34,6 @@
 .mine-mt-radio .mint-cell:last-child {
 	background: transparent;
 }
+.mint-header-title {
+	font-size: .16rem;
+}

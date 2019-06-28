@@ -46,8 +46,12 @@ Router.post('/login', (req, res) => {
 			return res.json(status.code_3)
 		} else {
 			if(doc) {
-				res.cookie('userid', doc._id)
-				return res.json({ code: 0, message: '登录成功', data: doc })
+				if(doc.type != type) {
+					return res.json(status.code_5)
+				} else {
+					res.cookie('userid', doc._id)
+					return res.json({ code: 0, message: '登录成功', data: doc })
+				}
 			} else {
 				return res.json(status.code_4)
 			}

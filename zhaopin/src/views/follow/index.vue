@@ -1,11 +1,11 @@
 <template>
-	<div class="message">
-		message
+	<div class="follow">
+		follow
 	</div>
 </template>
 <script type="text/ecmascript-6">
 	export default {
-		name: 'Message',
+		name: 'Follow',
 	}
 </script>
 <style lang="stylus" rel="stylesheet/stylus">

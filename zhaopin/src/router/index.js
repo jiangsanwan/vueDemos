@@ -28,6 +28,26 @@ export default new Router({
 					path: '/genius',
 					name: 'Genius',
 					component: () => import('@/views/home/genius/index')
+				},
+				{
+					path: '/boss',
+					name: 'Boss',
+					component: () => import('@/views/home/boss/index')
+				},
+				{
+					path: '/follow',
+					name: 'Follow',
+					component: () => import('@/views/follow/index')
+				},
+				{
+					path: '/message',
+					name: 'Message',
+					component: () => import('@/views/message/index')
+				},
+				{
+					path: '/user',
+					name: 'User',
+					component: () => import('@/views/user/index')
 				}
 			]
 		}
