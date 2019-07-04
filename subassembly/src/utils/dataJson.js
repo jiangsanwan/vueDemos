@@ -293,7 +293,11 @@ let data2019 = [
 	{ fiveData: [8, 22, 23, 33, 34], twoData: [4, 6] },
 	{ fiveData: [2, 13, 15, 22, 34], twoData: [2, 12] },
 	{ fiveData: [7, 13, 14, 15, 22], twoData: [7, 11] },
-	{ fiveData: [2, 4, 6, 9, 18], twoData: [7, 10] }
+	{ fiveData: [2, 4, 6, 9, 18], twoData: [7, 10] },
+	{ fiveData: [4, 11, 19, 20, 24], twoData: [8, 11] },
+	{ fiveData: [8, 9, 13, 14, 34], twoData: [5, 7] },
+	{ fiveData: [5, 6, 7, 11, 16], twoData: [2, 11] },
+	{ fiveData: [1, 6, 11, 23, 29], twoData: [1, 11] }
 ];
 
 export {
