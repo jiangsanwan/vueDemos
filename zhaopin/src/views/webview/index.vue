@@ -33,7 +33,7 @@
         top: 40px;
         right: 0;
         left: 0;
-        bottom: calc(14px + 0.45rem);
+        bottom: 57px;
         overflow-y: visible;
     }
 </style>

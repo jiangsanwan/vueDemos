@@ -108,6 +108,7 @@
                             } else {
                                 url = '/boss'
                             }
+                            this.$store.commit('SET_TYPE', d.data.data.type)
                             this.$router.push(url)
                         } else {
                             this.loginStatus.user = 'error'

@@ -3,12 +3,14 @@ const mongoose = require('mongoose')
 const DB_URL = 'mongodb://localhost:27017/fremember'
 mongoose.connect(DB_URL, { useNewUrlParser: true })
 
-var user = require('./user')
-var chat = require('./chat')
+let user = require('./user')
+let chat = require('./chat')
+let position = require('./position')
 
 const models = {
 	...user,
-	...chat
+	...chat,
+	...position
 }
 
 for(let m in models) {

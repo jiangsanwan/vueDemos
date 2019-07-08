@@ -7,5 +7,5 @@ module.exports.user =  {
 	'title': {type: String},// 招聘的职位名或者求职的职位名
 	// 如果是boss还有两个字段
 	'company': {'type': String},// 公司名
-	'money': {'type': String},// 薪资
+	'money': {'type': String}// 薪资
 };

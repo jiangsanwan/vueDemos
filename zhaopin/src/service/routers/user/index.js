@@ -16,7 +16,7 @@ let _filter = { 'pwd': 0, '__v': 0 }
 Router.get('/checkUser', (req, res) => {
 	let { user } = req.query
 	User.findOne({ user: user }, (err, doc) => {
-		if(doc) {
+		if(err) {
 			return res.json(status.code_1)
 		} else {
 			return res.json({ code: 0, message: '用户名可用' })
@@ -28,13 +28,13 @@ Router.get('/checkUser', (req, res) => {
 Router.post('/register', (req, res) => {
 	let { user, pwd, type } = req.body
 	let userModel = new User({ user, type, pwd: encry.md5(pwd) })
-	userModel.save((e, d) => {
-		if(e) {
+	userModel.save((err, doc) => {
+		if(err) {
 			return res.json(status.code_2)
 		}
-		let { user, type, _id } = d
+		let { user, type, _id } = doc
 		res.cookie('userid', _id)
-		return res.json({ code: 0, message: '注册成功', data: d })
+		return res.json({ code: 0, message: '注册成功', data: doc })
 	})
 })
 
@@ -57,6 +57,10 @@ Router.post('/login', (req, res) => {
 			}
 		}
 	})
+})
+
+// 用户退出
+Router.post('/logout', (req, res) => {
 })
 
 

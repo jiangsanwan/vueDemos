@@ -47,8 +47,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
     .mine-footer {
         .iconfont {
-            margin-bottom: .06rem;
-            font-size: .25rem
+            margin-bottom: 6px;
+            font-size: 25px;
         }
     }
 </style>
