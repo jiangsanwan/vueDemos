@@ -1,11 +1,35 @@
 <template>
 	<div class="genius">
 		<pos-header @changeCondition="changeCondition"></pos-header>
-		<div class="mt81px" :style="{ height: wrapperHeight + 'px' }">
+		<div class="outer-wrapper" :style="{ height: wrapperHeight + 'px' }">
 			<mt-spinner class="flex-center" v-show="dataLists.length == 0 && InitialLoading" color="#26a2ff" type="fading-circle"></mt-spinner>
 			<mt-loadmore :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
-				<ul>
-					<li v-for="item in dataLists" :key="item._id">{{ item._id }}</li>
+				<ul class="position-wrapper">
+					<li v-for="item in dataLists" :key="item._id">
+						<div class="position-title">
+							<p class="t">{{ item.title }}</p>
+							<p class="s">
+								<span>{{ item.salary }}</span>
+								<span v-show="item.salaryNumber"> · </span>
+								<span v-show="item.salaryNumber">{{ item.salaryNumber }}薪</span>
+							</p>
+						</div>
+						<div class="company-info">
+							<p class="c">{{ item.company }}</p>
+							<p class="f">{{ item.finance }}</p>
+						</div>
+						<div class="company-address">
+							<p class="b">{{ item.briefAddress }}</p>
+							<p class="w">{{ item.workingYears }}</p>
+							<p class="e">{{ item.education }}</p>
+						</div>
+						<div class="boss-info">
+							<img class="avatar" src="./../../../assets/imgs/defaultAvatar.png" alt="">
+							<p class="p">{{ item.publisherNickName }}</p>
+							<p class="dot"> · </p>
+							<p class="p">{{ item.publisherPosition }}</p>
+						</div>
+					</li>
 				</ul>
 				<div slot="top" class="mint-loadmore-top">
 					<mt-spinner class="flex-center" v-show="topStatus !== 'loading'" color="#26a2ff" type="fading-circle"></mt-spinner>
@@ -20,8 +44,7 @@
 		</div>
 	</div>
 </template>
-<!-- <script type="text/ecmascript-6"> -->
-<script>
+<script type="text/ecmascript-6">
 	import posHeader from './pos-header/index'
 	export default {
 		name: 'Genius',
@@ -43,7 +66,7 @@
 			}
 		},
 		mounted () {
-			this.wrapperHeight = document.documentElement.clientHeight - 97 - 81;
+			this.wrapperHeight = document.documentElement.clientHeight - 57 - 81;
 			this.loadTop()
 		},
 		methods: {
@@ -103,7 +126,60 @@
 	}
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
+	@import './../../../assets/stylus/reset'
 	.genius {
 		overflow: scroll;
+		.outer-wrapper {
+			margin-top(41px)
+			.position-wrapper {
+				li {
+					padding: .18rem .16rem;
+					border-bottom: .08rem solid #f3f3f3;
+					div {
+						display: flex;
+						margin-bottom(.08rem);
+						align-items(center);
+						&.position-title {
+							justify-content(space-between);
+							font-color(#333)
+							.t {
+								font-size(.16rem);
+								font-weight(600);	
+							}
+							.s {
+								font-color(#26a2ff);
+								font-weight(550);
+							}
+						}
+						&.company-info, &.company-address, &.boss-info {
+							font-color(#666)
+							.b, .c, .e, .f, .p, .w {
+								font-size(.12rem)
+							}
+							.f {
+								margin-left(.04rem)
+							}
+							.w {
+								margin-l-r(.06rem)
+							}
+						}
+						&.company-address {
+							margin-bottom(.12rem)
+						}
+						&.boss-info {
+							margin-bottom(0)
+							.avatar {
+								width(.24rem);
+								height(.24rem);
+								margin-right(.06rem);
+							}
+							.dot {
+								padding-l-r(.04rem)
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 </style>

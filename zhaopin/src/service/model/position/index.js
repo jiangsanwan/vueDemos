@@ -3,6 +3,7 @@ module.exports.position = {
 	'recommendLatest': { 'type': Number },// Number 推荐或最新 0推荐，1最新
 	'positionType': { 'type': Number },// Number 职位类型 0常规招聘，1急聘
 	'salary': { 'type': String, 'require': true },// String 薪资范围
+	'salaryNumber': { 'type': Number, 'require': true },// Number 多少薪
 	'company': { 'type': String, 'require': true },// String 公司名称
 	'finance': { 'type': String, 'require': true },// String 不需要融资，已上市，天使轮，A轮，B轮，C轮，D轮
 	'detailedAddress': { 'type': String, 'require': true },// String 详细地址
@@ -24,6 +25,7 @@ module.exports.position = {
 	recommendLatest: 0,
 	positionType: 1,
 	salary: '15000-20000',
+	salaryNumber: 13,
 	company: '平安好医生',
 	finance: '已上市',
 	detailedAddress: '安徽省合肥市高新区1314路78号',

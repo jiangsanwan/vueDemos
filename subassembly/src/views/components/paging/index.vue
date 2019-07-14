@@ -7,21 +7,21 @@
 				<ul v-show="showSelect">
 					<li :class="{'active': whichYear == item}" v-for="item in yearArr" :key="item" @click="changeYear(item)">{{ item }}</li>
 				</ul>
-				<div class="btn" @click="searchEcent">搜索</div>	
+				<div class="btn" @click="searchEvent">搜索</div>	
 			</div>
 			<div class="history">
 				<ul class="items">
-					<li v-for="item in currentData">
-						<div v-for="v in item.fiveData">{{ v < 10 ? '0' + v : v }}</div>
-						<div class="light" v-for="v in item.twoData">{{ v < 10 ? '0' + v : v }}</div>
+					<li v-for="(item, index) in currentData" :key="index + Math.random() * currentData.length">
+						<div v-for="(v, i) in item.fiveData" :key="i + Math.random() * item.fiveData.length">{{ v &lt; 10 ? '0' + v : v }}</div>
+						<div class="light" v-for="(v, i) in item.twoData" :key="i + Math.random() * item.twoData.length">{{ v &lt; 10 ? '0' + v : v }}</div>
 						<div>{{ item.fiveTotal }}</div>
 					</li>
 				</ul>
 				<div class="total">
 					<ul>
-						<li v-for="(item, index) in singleNumberArr">
-							<div>{{ index + 1 < 10 ? '0' + (index + 1) : index + 1 }}</div>
-							<div>{{ item < 10 ? '0' + item : item }}</div>
+						<li v-for="(item, index) in singleNumberArr" :key="index + Math.random() * singleNumberArr.length">
+							<div>{{ index + 1 &lt; 10 ? '0' + (index + 1) : index + 1 }}</div>
+							<div>{{ item &lt; 10 ? '0' + item : item }}</div>
 						</li>
 					</ul>
 				</div>
@@ -36,25 +36,25 @@
 			</div>
 			<div class="history">
 				<ul class="items">
-					<li v-for="item in curNewArr">
-						<div v-for="v in item.fiveData">{{ v < 10 ? '0' + v : v }}</div>
-						<div class="light" v-for="v in item.twoData">{{ v < 10 ? '0' + v : v }}</div>
+					<li v-for="(item, index) in curNewArr" :key="index + Math.random() * curNewArr.length">
+						<div v-for="(v, i) in item.fiveData" :key="i + Math.random() * item.fiveData.length">{{ v &lt; 10 ? '0' + v : v }}</div>
+						<div class="light" v-for="(v, i) in item.twoData" :key="i + Math.random() * item.twoData.length">{{ v &lt; 10 ? '0' + v : v }}</div>
 						<div>{{ item.fiveTotal }}</div>
 					</li>
 				</ul>
 				<div class="total">
 					<ul>
-						<li v-for="(item, index) in newSingleNumberArr">
-							<div>{{ index + 1 < 10 ? '0' + (index + 1) : index + 1 }}</div>
-							<div class="w50px">{{ item < 10 ? '0' + item : item }}</div>
+						<li v-for="(item, index) in newSingleNumberArr" :key="index + Math.random() * newSingleNumberArr.length">
+							<div>{{ index + 1 &lt; 10 ? '0' + (index + 1) : index + 1 }}</div>
+							<div class="w50px">{{ item &lt; 10 ? '0' + item : item }}</div>
 						</li>
 					</ul>
 					<div class="thin-line"></div>
 					<ul class="items">
 						<li>测试重复的数据</li>
-						<li v-for="(item, index) in doubleFiveArr">
-							<div v-for="v in item.fiveData">{{ v < 10 ? '0' + v : v }}</div>
-							<div class="light" v-for="v in item.twoData">{{ v < 10 ? '0' + v : v }}</div>
+						<li v-for="(item, index) in doubleFiveArr" :key="index + Math.random() * doubleFiveArr.length">
+							<div v-for="(v, i) in item.fiveData" :key="i + Math.random() * item.fiveData.length">{{ v &lt; 10 ? '0' + v : v }}</div>
+							<div class="light" v-for="(v, i) in item.twoData" :key="i + Math.random() * item.twoData.length">{{ v &lt; 10 ? '0' + v : v }}</div>
 						</li>
 					</ul>
 				</div>
@@ -67,6 +67,7 @@
 <script>
 	import minePaging from '@/components/paging/index'
 	import * as historyData from '@/utils/dataJson.js'
+	import { allData } from '@/utils/allDataJson.js'
 	export default {
 		name: 'Home',
 		components: {
@@ -104,7 +105,6 @@
 		mounted () {
 			this.createYearArr(13);
 			this.getCurData();
-			// console.log(this.newSingleNumberArr)
 		},
 		methods: {
 			createYearArr (len) {
@@ -113,17 +113,17 @@
 					this.yearArr.push(curY - i);
 				}
 			},
-			singleNumberEvent (arr) {
+			singleNumberEvent (arr) {// 统计35选5个数，每个数出现的次数
 				let res = new Array(35).fill(0);
-				arr.forEach((v, i , arr) => {
-					v.fiveData.forEach((_v, _i, _arr) => {
+				arr.forEach((v) => {
+					v.fiveData.forEach((_v) => {
 						res[_v - 1] += 1;
 					})
 				})
 				return res;
 			},
-			getCurData () {
-				this.yearLists.forEach((v, i, arr) => {
+			getCurData () {// 获取哪一年的历史数据
+				this.yearLists.forEach((v) => {
 					if(v.indexOf(this.whichYear) > 0) {
 						this.curData = historyData[v]
 						this.total = historyData[v].length
@@ -132,12 +132,12 @@
 				this.singleNumberArr = this.singleNumberEvent(this.curData);
 				this.getCurrentData();
 			},
-			getCurrentData () {
+			getCurrentData () {// 统计35选5个数，这5个数的和
 				this.currentData = [];
-				this.curData.forEach((v, i , arr) => {
+				this.curData.forEach((v, i) => {
 					if(this.selectNum * (this.pageNum - 1) <= i && i < this.selectNum * this.pageNum) {
 						v.fiveTotal = 0
-						v.fiveData.forEach((_v, _i, _arr) => {
+						v.fiveData.forEach((_v) => {
 							v.fiveTotal += _v
 						})
 						this.currentData.push(v)
@@ -148,17 +148,17 @@
 				this.whichYear = item;
 				this.showSelect = false;
 			},
-			searchEcent () {
+			searchEvent () {
 				this.getCurData();
 			},
 			pagechange (val) {
 				this.pageNum = JSON.parse(val)['current'];
 				this.getCurrentData();
 			},
-			createSimple (max) {
+			createSimple (max) {// 根据传入的最大数值，返回一个1到max的任意数字
 				return parseInt(Math.ceil(Math.random() * max))
 			},
-			createArr (max, len) {
+			createArr (max, len) {// 生成len长度的数字，数组中的元素是由createSimple函数生成的数字
 				if(!max) return;
 				let res = [];
 				while(res.length < len) {
@@ -169,20 +169,31 @@
 				}
 				return res;
 			},
-			createNewData () {
+			createSimpleFiveData () {// 生成跟历史数据不同的新数据
+				let fiveData = this.createArr(35, 5),
+					simpleTimes = 0;
+				allData.forEach(v => {
+					if(!this.isEqual(v.fiveData, fiveData)) {
+						simpleTimes += 1; 
+					}
+				})
+				if(simpleTimes == allData.length) {
+					return fiveData
+				} else {
+					return this.createSimpleFiveData();
+				}
+			},
+			createNewData () {// 循环生成数组，及测试数据
 				let len = parseInt(this.newMax);
 				for(let i = 0; i < len; i++) {
 					let obj = {}
-					obj.fiveData = this.createArr(35, 5)
+					// obj.fiveData = this.createArr(35, 5)
+					obj.fiveData = this.createSimpleFiveData()
 					obj.twoData = this.createArr(12, 2)
 					this.newArr.push(obj);
 				}
 				this.newSingleNumberArr = this.singleNumberEvent(this.newArr);
-				let tempArr = this.newArr;
-				// console.log(this.doubleFiveEvent(this.newArr));
 				this.doubleFiveArr = this.doubleFiveEvent(this.newArr);
-				/*console.log(this.doubleFiveArr)*/
-
 				this.createCurNewArr();
 			},
 			sortArr(arr) {
@@ -194,15 +205,15 @@
 				// 判断传入的两个数组相不相等
 				if(arguments.length != 2) {
 					throw new Error('传入参数不正确');
-					return false;
 				} else if(arr1.length != arr2.length) {
 					throw new Error('参数数组长度不一致');
-					return false;
 				} else {
 					var len = arr1.length,
-						total = 0;
+						total = 0,
+						_arr1 = this.sortArr(arr1),
+						_arr2 = this.sortArr(arr2);
 					for(var i = 0; i < len; i++) {
-						if(arr1[i] == arr2[i]) {
+						if(_arr1[i] == _arr2[i]) {
 							total += 1
 						}
 					}
@@ -213,7 +224,7 @@
 					}
 				}
 			},
-			doubleFiveEvent(arr) {
+			doubleFiveEvent(arr) {// 统计新生成的数据中重复出现的数组
 				let len = arr.length,
 					_arri = [],
 					_arrj = [],
@@ -229,12 +240,12 @@
 				}
 				return res;
 			},
-			createCurNewArr () {
+			createCurNewArr () {// 生成分页数据
 				this.curNewArr = [];
-				this.newArr.forEach((v, i , arr) => {
+				this.newArr.forEach((v, i) => {
 					if(this.selectNum * (this.pageNumNew - 1) <= i && i < this.selectNum * this.pageNumNew) {
 						v.fiveTotal = 0
-						v.fiveData.forEach((_v, _i, _arr) => {
+						v.fiveData.forEach((_v) => {
 							v.fiveTotal += _v
 						})
 						this.curNewArr.push(v)

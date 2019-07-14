@@ -6,7 +6,7 @@
 			</ul>
 			<div class="operate">
 				<router-link to="/addExpectedPosition">
-					<i class="iconfont icon-edit"></i>
+					<i class="iconfont icon-add-fill"></i>
 				</router-link>
 				<span></span>
 				<router-link to="/searchJobCompany">
@@ -15,39 +15,33 @@
 			</div>
 		</div>
 		<ul class="condition">
-			<li :class="{active: index == showConditionActive}" v-for="(list, index) in conditionList" :key="index" @click="showConditionOption(index)">
-				{{ list }}
-				<span v-show="index == 2 && companySelectedNum > 0">({{ companySelectedNum }})</span>
-				<span v-show="index == 3 && requireSelectedNum > 0">({{ requireSelectedNum }})</span>
-				<div class="thin-height" v-show="index < conditionList.length-1"></div>
+			<li>
+				<mt-cell :class="{ 'active': showConditionActive == 0 }" class="mine-cell" title="推荐" @click.native.capture="showConditionOption(0)"></mt-cell>
+				<mt-cell :class="{ 'active': showConditionActive == 1 }" class="mine-cell" title="最新" @click.native.capture="showConditionOption(1)"></mt-cell>
+			</li>
+			<li>
+				<mt-button class="mine-button" type="default" @click.native.capture="changeRouter('/selectAddress')">
+					{{ selectAddress }}
+					<span class="more"></span>
+				</mt-button>
+				<mt-button class="mine-button" :class="{ 'selected': selectOptions > 0 }" type="default" @click.native.capture="changeRouter('/selectCondition')">
+					{{ selectOptions > 0 ? '筛选 · ' + selectOptions : '筛选' }}
+					<span class="more"></span>
+				</mt-button>
 			</li>
 		</ul>
 		<div class="thin-width"></div>
-		<RecommendLatest v-if="showConditionPanel == 0" :activeRecommendLatest="0" @changeRecommendLatest="changeRecommendLatest"></RecommendLatest>
-		<AddressLayout v-if="showConditionPanel == 1" @selectedRegionSubway="selectedRegionSubway"></AddressLayout>
-		<CompanyLayout v-if="showConditionPanel == 2" @companyNum="companyNum"></CompanyLayout>
-		<RequireLayout v-if="showConditionPanel == 3" @requireNum="requireNum"></RequireLayout>
 	</div>
 </template>
 
 <script>
-	import RecommendLatest from './positionLayout/index';
-	import AddressLayout from './addressLayout/index';
-	import CompanyLayout from './companyLayout/index';
-	import RequireLayout from './requireLayout/index';
 	export default {
-		components: {
-			RecommendLatest,
-			AddressLayout,
-			CompanyLayout,
-			RequireLayout
-		},
+		name: 'posHeader',
 		data () {
 			return {
 				activePosition: 0,// 激活哪个职位tab
-				showConditionActive: -1,// 激活哪个条件tab
-				showConditionPanel: -1,// 显示哪个条件选择面板
-				conditionList: ['推荐', '北京', '公司', '要求'],// 导航
+				showConditionActive: 0,// 激活哪个条件tab
+				conditionList: ['推荐', '最新'],// 导航
 				positionList: [// 用户自己的求职意向
 					{
 						title: 'HTML5',
@@ -62,13 +56,13 @@
 						industry: '移动互联网'
 					}
 				],
-				companySelectedNum: 0,
-				requireSelectedNum: 0
+				selectAddress: '',
+				selectOptions: 10
 			}
 		},
 		mounted () {
 			// 需要根据用户的id获取tab列表
-			this.conditionList[1] = this.positionList[0].workCity;
+			this.selectAddress = this.positionList[0].workCity;
 		},
 		methods: {
 			// 切换职位选择
@@ -78,48 +72,12 @@
 			},
 			// 显示条件选择面板
 			showConditionOption (index) {
-				if(this.showConditionActive == index) {
-					this.showConditionActive = -1;
-					this.showConditionPanel = -1;
-				} else {
-					this.showConditionActive = index;
-					this.showConditionPanel = index;
+				if(index != this.showConditionActive) {
+					this.showConditionActive = index
 				}
 			},
-			// 切换状态
-			changeRecommendLatest (result) {
-				// console.log(result);// {title: "推荐", code: 0}
-				this.conditionList[0] = result;
-				this.showConditionPanel = -1;
-				this.showConditionActive = -1;
-				this.$emit("changeCondition", '');
-			},
-			// 修改地址
-			selectedRegionSubway (data) {
-				if(data != -1) {
-					this.conditionList[1] = data;
-				}
-				this.showConditionActive = -1;
-				this.showConditionPanel = -1;
-				this.$emit("changeCondition", '');
-			},
-			// 修改公司相关选项个数
-			companyNum (num) {
-				this.showConditionActive = -1;
-				this.showConditionPanel = -1;
-				if(num !== -1) {
-					this.companySelectedNum = num;
-					this.$emit("changeCondition", '');
-				}
-			},
-			// 修改要求相关选项个数
-			requireNum (num) {
-				this.showConditionActive = -1;
-				this.showConditionPanel = -1;
-				if(num !== -1) {
-					this.requireSelectedNum = num;
-					this.$emit("changeCondition", '');
-				}
+			changeRouter (router) {// 改变路由
+				this.$router.push(router)
 			}
 		}
 	}
@@ -128,14 +86,14 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
 	.pos-header {
 		position: fixed;
-		top: 40px;
+		top: 0;
 		left: 0;
 		z-index: 1060;
 		width: 100%;
 		height: 40px;
 		.tabs {
 			color: #fff;
-			background: #34E8D6;
+			background: #26a2ff;
 			display: flex;
 			.position {
 				flex: 1;
@@ -175,26 +133,51 @@
 		.condition {
 			display: flex;
 			align-items: center;
-			justify-content: center;
+			justify-content: space-between;
 			background: #fff;
+			padding: 0 .1rem;
+			height: 40px;
 			li {
-				position: relative;
-				width: 25%;
+				display: flex;
 				line-height: 40px;
 				text-align: center;
+				align-items: center;
 				font-size: 0.14rem;
 				color: #5A5A5A;
-				.thin-height {
-					position: absolute;
-					top: 0px;
-					right: 0;
-					width: 1px;
-					height: 40px;
-					transform: scaleX(0.5);
-					background: #D6D6D6;
+				.active {
+					color: #26a2ff;
 				}
-				&.active {
-					color: #34e8d6;
+				.mine-cell {
+					min-height: 40px;
+					background-size: 0 0;
+				}
+				.mine-button {
+					position: relative;
+					height: 28px;
+					padding: 0 14px 0 10px;
+					&:first-child {
+						margin-right: 8px;
+					}
+					.more {
+						position: absolute;
+						right: .06rem;
+						bottom: .06rem;
+						width: 0;
+						height: 0;
+						border-bottom: .06rem solid #ccc;
+						border-left: .06rem solid transparent;
+					}
+					&:after {
+						background: transparent;
+					}
+					&.selected {
+						font-weight: 550;
+						color: #26a2ff;
+						background: rgba(38, 162, 255, 0.1);
+					}
+					.mint-button-text {
+						display: flex;
+					}
 				}
 			}
 		}
