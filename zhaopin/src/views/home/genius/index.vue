@@ -5,7 +5,7 @@
 			<mt-spinner class="flex-center" v-show="dataLists.length == 0 && InitialLoading" color="#26a2ff" type="fading-circle"></mt-spinner>
 			<mt-loadmore :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
 				<ul class="position-wrapper">
-					<li v-for="item in dataLists" :key="item._id">
+					<li v-for="item in dataLists" :key="item._id" @click="goToDetail(item)">
 						<div class="position-title">
 							<p class="t">{{ item.title }}</p>
 							<p class="s">
@@ -66,7 +66,8 @@
 			}
 		},
 		mounted () {
-			this.wrapperHeight = document.documentElement.clientHeight - 57 - 81;
+			this.$store.commit('SET_SHOWMINEFOOTER', true)
+			this.wrapperHeight = document.documentElement.clientHeight - 57 - 41
 			this.loadTop()
 		},
 		methods: {
@@ -121,6 +122,9 @@
 			changeCondition (result) {
 				// 条件修改，重新获取数据
 				this.loadTop()
+			},
+			goToDetail (item) {
+				this.$router.push(`/positionDetail/${item._id}`)
 			}
 		},
 	}
@@ -130,7 +134,7 @@
 	.genius {
 		overflow: scroll;
 		.outer-wrapper {
-			margin-top(41px)
+			margin-top(81px)
 			.position-wrapper {
 				li {
 					padding: .18rem .16rem;

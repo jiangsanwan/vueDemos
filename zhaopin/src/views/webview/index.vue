@@ -4,7 +4,7 @@
         <section ref="webview">
             <router-view/>
         </section>
-        <mine-footer></mine-footer>
+        <mine-footer v-if="showMineFooter"></mine-footer>
     </div>
 </template>
 <script>
@@ -19,6 +19,11 @@
         data () {
             return {}
         },
+        computed: {
+            showMineFooter () {
+                return this.$store.state.showMineFooter
+            }
+        },
         mounted () {
             this.initHeight();
         },
@@ -30,7 +35,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
     section {
         position: fixed;
-        top: 40px;
+        top: 0;
         right: 0;
         left: 0;
         bottom: 57px;

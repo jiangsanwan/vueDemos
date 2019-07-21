@@ -30,6 +30,11 @@ export default new Router({
 					component: () => import('@/views/home/genius/index')
 				},
 				{
+					path: '/positionDetail/:id',
+					name: 'PositionDetail',
+					component: () => import('@/views/home/genius/positionDetail/index')
+				},
+				{
 					path: '/boss',
 					name: 'Boss',
 					component: () => import('@/views/home/boss/index')

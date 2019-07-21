@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import request from './../utils/request.js'
 
-let qs = require('qs')
-
 Vue.use(Vuex)
 
 let api = '/api'
@@ -23,25 +21,42 @@ export default new Vuex.Store({
 			rightText: '',// 头部右边显示文字
 			rightLink: ''// 头部右边链接
 		},
-		type: ''
+		type: '',
+		token: sessionStorage.getItem('token') || '',
+		showMineFooter: true
 	},
 	mutations: {
+		SET_USERINFO (state, value) {
+			state.userInfo = value
+		},
 		SET_TYPE (state, value) {
 			state.type = value
+		},
+		SET_TOKEN (state, value) {
+			state.token = value
+		},
+		SET_SHOWMINEFOOTER (state, value) {
+			state.showMineFooter = value
 		}
 	},
 	actions: {
-		checkUser ({ commit, dispatch, state }, user) {// 验证用户名是否存在
-			return request.get(`${api}/user/checkUser?user=${user}`)
+		getImgVerify ({ commit, dispatch, state }, params) {// 获取图形验证码
+			return request.get(`${api}/common/getImgVerify`, params)
 		},
-		register ({ commit, dispatch, state }, data) {
+		checkUser ({ commit, dispatch, state }, params) {// 验证用户名是否存在
+			return request.get(`${api}/user/checkUser`, params)
+		},
+		register ({ commit, dispatch, state }, data) {// 新用户注册
 			return request.post(`${api}/user/register`, data)
 		},
-		login ({ commit, despatch, state }, data) {
+		login ({ commit, despatch, state }, data) {// 用户登录
 			return request.post(`${api}/user/login`, data)
 		},
-		positionList ({ commit, despatch, state }, data) {
-			return request.get(`${api}/position/list?${qs.stringify(data)}`)
+		positionList ({ commit, despatch, state }, params) {// 牛人获取职位列表
+			return request.get(`${api}/position/list`, params)
+		},
+		getPositionDetailById({ commit, despatch, state }, params) {// 牛人根据id值获取职位详情
+			return request.get(`${api}/position/detail`, params)
 		}
 	}
 })
