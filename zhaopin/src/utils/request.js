@@ -53,7 +53,7 @@ axios.interceptors.request.use(config => {
 				config.headers['token'] = store.state.token
 			} else {
 				router.replace({
-					path: 'login'
+					path: '/login'
 				})
 			}
 		}
@@ -67,7 +67,7 @@ axios.interceptors.response.use(response => {
 			localStorage.clear()
 			sessionStorage.clear()
 			router.replace({
-				path: 'login'
+				path: '/login'
 			})
 		}
 	}

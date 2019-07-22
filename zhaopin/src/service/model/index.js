@@ -6,11 +6,13 @@ mongoose.connect(DB_URL, { useNewUrlParser: true })
 let user = require('./user')
 let chat = require('./chat')
 let position = require('./position')
+let company = require('./company')
 
 const models = {
 	...user,
 	...chat,
-	...position
+	...position,
+	...company
 }
 
 for(let m in models) {

@@ -1,15 +1,24 @@
 <template>
 	<div class="position-detail">
-		哈哈哈
+		<mine-btns-header :titleObj="titleObj"></mine-btns-header>
 	</div>
 </template>
 <!-- <script type="text/ecmascript-6"> -->
 <script>
+	import MineBtnsHeader from '@/components/mine-btns-header/index'
 	export default {
 		name: 'PositionDetail',
+		components: { MineBtnsHeader },
 		data () {
 			return {
-				id: this.$route.params.id
+				id: this.$route.params.id,
+				titleObj: {
+					title: 'hah',
+					more: [ 'icon-favorite', 'icon-warning', 'icon-share' ]
+					/*favorite: true,
+					warning: true,
+					share: true*/
+				}
 			}
 		},
 		mounted () {

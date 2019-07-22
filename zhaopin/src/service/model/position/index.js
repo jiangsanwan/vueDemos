@@ -17,7 +17,8 @@ module.exports.position = {
 	'qualification': { 'type': String, 'require': true },// String 任职资格
 	'skillsRequired': { 'type': String, 'require': true },// String 技能要求
 	'scale': { 'type': String, 'require': true },// String 公司人数规模
-	'companyType': { 'type': String, 'require': true }// String 公司类型
+	'companyType': { 'type': String, 'require': true },// String 公司类型
+	'logo': { 'type': String, 'require': true },// 公司logo
 };
 
 /*db.positions.insert({
@@ -40,4 +41,5 @@ module.exports.position = {
 	skillsRequired: 'node、javascript、es6',
 	scale: '20-100人',
 	companyType: '互联网',
+	logo: ''
 });*/
