@@ -3,10 +3,10 @@
 		<div class="menu-wrapper">
 			<h1 class="menu-title">组件使用</h1>
 			<p class="menu-cont">
-				<router-link to="/paging" class="wallet">分也组件</router-link>
+				<router-link to="/paging" class="wallet">中国体彩</router-link>
 			</p>
 			<p class="menu-cont">
-				<router-link to="/paging2" class="wallet">分也组件2</router-link>
+				<router-link to="/paging2" class="wallet">中国福彩</router-link>
 			</p>
 		</div>
 		<div class="menu-wrapper">
