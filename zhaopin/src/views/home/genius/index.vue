@@ -44,7 +44,8 @@
 		</div>
 	</div>
 </template>
-<script type="text/ecmascript-6">
+<!-- <script type="text/ecmascript-6"> -->
+<script>
 	import posHeader from './pos-header/index'
 	export default {
 		name: 'Genius',
@@ -57,7 +58,9 @@
 				bottomStatus: '',
 				allLoaded: false,
 				max: 0,
-				pageNum: 1,
+				query: {
+					pageNum: 1
+				},
 				totalPage: 0,
 				InitialLoading: true,
 				wrapperHeight: 0,
@@ -67,7 +70,7 @@
 		},
 		mounted () {
 			this.$store.commit('SET_SHOWMINEFOOTER', true)
-			this.wrapperHeight = document.documentElement.clientHeight - 57 - 41
+			this.wrapperHeight = document.documentElement.clientHeight - 60 - 80
 			this.loadTop()
 		},
 		methods: {
@@ -80,7 +83,7 @@
 				this.$refs.loadmore.onBottomLoaded()
 			},
 			getLists (type) {
-				this.$store.dispatch('positionList', { pageNum: this.pageNum })
+				this.$store.dispatch('positionList', this.query)
 				.then(d => {
 					if(d.data.code == 0) {
 						this.total = d.data.data.total
@@ -102,7 +105,7 @@
 			},
 			loadTop () {// 下拉刷新
 				this.handleTopChange('loading') // 下拉时 改变状态码
-				this.pageNum = 1;
+				this.query.pageNum = 1;
 				this.allLoaded = false;// 下拉刷新时解除上拉加载的禁用
 				this.getLists('refresh')
 			},
@@ -111,8 +114,8 @@
 			},
 			loadBottom () {// 上拉加载更多
 				this.handleBottomChange("loading")// 上拉时 改变状态码
-				this.pageNum += 1;
-				if (this.pageNum <= this.total) {// 最多下拉三次
+				this.query.pageNum += 1;
+				if (this.query.pageNum <= this.total) {
 					this.getLists('more')
 				} else {
 					this.allLoaded = true// 模拟数据加载完毕 禁用上拉加载
@@ -120,6 +123,7 @@
 				}
 			},
 			changeCondition (result) {
+				this.query = { ...this.query, ...result }
 				// 条件修改，重新获取数据
 				this.loadTop()
 			},

@@ -3,6 +3,16 @@ border-radius(n) {
 	-moz-border-radius: n;
 	border-radius: n;
 }
+border-top-right-radius(n) {
+	-webkit-border-top-right-radius: n;
+	-moz-border-top-right-radius: n;
+	border-top-right-radius: n;
+}
+border-top-left-radius(n) {
+	-webkit-border-top-left-radius: n;
+	-moz-border-top-left-radius: n;
+	border-top-left-radius: n;
+}
 thin-width(n, c) {
 	width: n;
 	height: 1px;
@@ -32,26 +42,11 @@ all(n) {
 	bottom: n;
 	left: n;
 }
-transform(n, m) {
-	transform: translate(n, m)
+transform-translate(n, m) {
+	transform: translate(n, m);
 }
-padding(n) {
-	padding: n
-}
-pad-t(n) {
-	padding-top: n
-}
-pad-r(n) {
-	padding-right: n
-}
-pad-b(n) {
-	padding-bottom: n
-}
-pad-l(n) {
-	padding-left: n
-}
-bg(n) {
-	background: n
+transform-rotate(n) {
+	transform: rotate(n);
 }
 text-align(n) {
 	text-align: n
@@ -88,6 +83,10 @@ margin-t-b(n) {
 margin-l-r(n) {
 	margin-left(n)
 	margin-right(n)
+}
+margin-auto(n) {
+	margin-t-b(n)
+	margin-l-r(auto)
 }
 padding-all(n) {
 	padding: n
@@ -132,6 +131,18 @@ font-color(color) {
 }
 background(background) {
 	background: background
+}
+background(background) {
+	background: background
+}
+cursor(n) {
+	cursor: n 
+}
+display(n) {
+	display: n
+}
+overflow-y(n) {
+	overflow-y: n
 }
 
 

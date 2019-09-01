@@ -1,7 +1,7 @@
 <template>
     <div class="webview">
         <!-- <mine-header></mine-header> -->
-        <section ref="webview">
+        <section :class="{'b60px': showMineFooter, 'b0': !showMineFooter}" ref="webview">
             <router-view/>
         </section>
         <mine-footer v-if="showMineFooter"></mine-footer>
@@ -38,7 +38,12 @@
         top: 0;
         right: 0;
         left: 0;
-        bottom: 57px;
         overflow-y: visible;
+        &.b60px {
+            bottom: 60px;
+        }
+        &.b0 {
+            bottom: 0;
+        }
     }
 </style>

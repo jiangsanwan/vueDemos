@@ -10,17 +10,28 @@ let status = require('./../../comment')
  * 牛人获取职位列表
  */
 Router.get('/list', (req, res) => {
-	let { pageNum, pageSize = 20 } = req.query
+	let pageSize = 20,
+		pageNum = req.query.pageNum,
+		data = { ...req.query };
+	delete data.pageNum
+	if(data.recommendLatest) {
+		data.recommendLatest = Number(data.recommendLatest)
+	}
+	if(data.positionType) {
+		data.positionType = Number(data.positionType)
+	}
+	// let { pageNum, pageSize = 20 } = req.query
 	/* 第一个花括号中是查询条件，需要做&&或者||的处理 */
-	Position.find({}, (err, doc) => {
+	Position.find(data, (err, doc) => {
 		if(err) {
 			return res.json(status.code_1)
 		} else {
-			Position.countDocuments({}, (e, count) => {
+			Position.countDocuments(data, (e, count) => {
 				if(e) {
 					return res.json(status.code_1)
 				} else {
-					return res.json({ code: 0, message: '数据加载成功', data: { list: doc, total: Math.ceil(count / pageSize) } })
+					let total = count == 0 ? 0 : Math.ceil(count / pageSize)
+					return res.json({ code: 0, message: '数据加载成功', data: { list: doc, total: total } })
 				}
 			})
 		}

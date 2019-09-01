@@ -3,9 +3,9 @@
 		<div class="goback" @click="gobackEvent">
 			<i class="iconfont icon-arrowLeft"></i>
 		</div>
-		<div class="title">{{ titleObj.title }}</div>
+		<div class="title" v-if="headerObj.title">{{ headerObj.title }}</div>
 		<div class="flex more">
-			<div v-for="item in titleObj.more" :key="item" @click="btnOperateEvent(item)">
+			<div v-for="item in headerObj.more" :key="item" @click="btnOperateEvent(item)">
 				<i class="iconfont" :class="item"></i>
 			</div>
 		</div>
@@ -15,7 +15,7 @@
 	export default {
 		name: 'MineBtnsHeader',
 		props: {
-			titleObj: {
+			headerObj: {
 				type: Object,
 				default: {}
 			}

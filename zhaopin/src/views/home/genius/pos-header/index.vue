@@ -75,6 +75,7 @@
 				if(index != this.showConditionActive) {
 					this.showConditionActive = index
 				}
+				this.$emit('changeCondition', { recommendLatest: index })
 			},
 			changeRouter (router) {// 改变路由
 				this.$router.push(router)

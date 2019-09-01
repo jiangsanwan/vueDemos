@@ -70,3 +70,21 @@
 	-webkit-background-size: 200% 100%;
 	-webkit-animation: masked-animation 2s infinite linear;
 }
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+	width: 4px;
+	background-color: #fff;
+	box-shadow: 0 2px 0 0 #eee;
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: #eee;
+}
