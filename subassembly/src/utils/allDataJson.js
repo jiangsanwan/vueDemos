@@ -1876,7 +1876,20 @@ let allData = [
 	{ fiveData: [13, 15, 17, 19, 22], twoData: [3, 4] },
 	{ fiveData: [4, 6, 18, 27, 33], twoData: [7, 9] },
 	{ fiveData: [5, 8, 12, 19, 21], twoData: [6, 11] },
-	{ fiveData: [5, 11, 18, 19, 27], twoData: [5, 6] }
+	{ fiveData: [5, 11, 18, 19, 27], twoData: [5, 6] },
+	{ fiveData: [5, 10, 15, 19, 31], twoData: [3, 6] },
+	{ fiveData: [5, 12, 22, 27, 32], twoData: [4, 7] },
+	{ fiveData: [2, 7, 19, 22, 28], twoData: [3, 5] },
+	{ fiveData: [1, 4, 9, 14, 17], twoData: [1, 6] },
+	{ fiveData: [5, 8, 10, 32, 35], twoData: [2, 10] },
+	{ fiveData: [5, 9, 19, 27, 35], twoData: [2, 3] },
+	{ fiveData: [24, 27, 28, 31, 34], twoData: [4, 8] },
+	{ fiveData: [2, 7, 8, 20, 25], twoData: [11, 12] },
+	{ fiveData: [1, 19, 23, 24, 30], twoData: [4, 5] },
+	{ fiveData: [6, 15, 20, 23, 27], twoData: [8, 10] },
+	{ fiveData: [3, 10, 16, 21, 33], twoData: [5, 6] },
+	{ fiveData: [3, 11, 27, 34, 35], twoData: [1, 2] },
+	{ fiveData: [3, 5, 7, 20, 23], twoData: [4, 11] }
 ];
 export {
     allData
