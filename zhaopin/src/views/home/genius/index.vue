@@ -9,7 +9,7 @@
 						<div class="position-title">
 							<p class="t">{{ item.title }}</p>
 							<p class="s">
-								<span>{{ item.salary }}</span>
+								<span>{{ item.salaryMin | formatSalaryToK(false) }}-{{ item.salaryMax | formatSalaryToK(true) }}</span>
 								<span v-show="item.salaryNumber"> · </span>
 								<span v-show="item.salaryNumber">{{ item.salaryNumber }}薪</span>
 							</p>
@@ -24,7 +24,7 @@
 							<p class="e">{{ item.education }}</p>
 						</div>
 						<div class="boss-info">
-							<img class="avatar" src="./../../../assets/imgs/defaultAvatar.png" alt="">
+							<img class="avatar" src="@/assets/imgs/defaultAvatar.png" alt="">
 							<p class="p">{{ item.publisherNickName }}</p>
 							<p class="dot"> · </p>
 							<p class="p">{{ item.publisherPosition }}</p>

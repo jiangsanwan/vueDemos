@@ -88,3 +88,113 @@
 	border-radius: 10px;
 	background: #eee;
 }
+/* 隐藏百度地图的logo水印 */
+.anchorBL{
+	display: none;
+}
+/* 蓝色 */
+.color409eff {
+	color: #409eff;
+}
+.bg409eff {
+	background: #409eff;
+}
+/* success */
+.color67c23a {
+	color: #67c23a;
+}
+.bg67c23a {
+	background: #67c23a;
+}
+/* warning */
+.colore6a23c {
+	color: #e6a23c;
+}
+.bge6a23c {
+	background: #e6a23c;
+}
+/* Danger */
+.colorf56c6c {
+	color: #f56c6c;
+}
+.bgf56c6c {
+	background: #f56c6c;
+}
+/* Info, 次要文字 */
+.color909399 {
+	color: #909399;
+}
+.bg909399 {
+	background: #909399;
+}
+/* 主要文字 */
+.color303133 {
+	color: #303133;
+}
+.bg303133 {
+	background: #303133;
+}
+/* 常规文字 */
+.color606266 {
+	color: #606266;
+}
+.bg606266 {
+	background: #606266;
+}
+/* 占位文字 */
+.colorc0c4cc {
+	color: #c0c4cc;
+}
+.bgc0c4cc {
+	background: #c0c4cc;
+}
+.color000 {
+	color: #000;
+}
+.bdcolor-dcdfe6 {
+	border-color: #dcdfe6;
+}
+.dbcolor-e4e7ed {
+	border-color: #e4e7ed;
+}
+.bdcolor-ebeef5 {
+	border-color: #ebeef5;
+}
+.dbcolor-f2f6fc {
+	border-color: #f2f6fc;
+}
+.font-size-16rem {
+	font-size: .16rem;
+}
+.font-size-14rem {
+	font-size: .14rem;
+}
+.font-size-12rem {
+	font-size: .12rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

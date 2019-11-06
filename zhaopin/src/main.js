@@ -9,14 +9,19 @@ Vue.use(Mint)
 
 import '@/assets/font/iconfont.css'
 
-import request from '@/utils/request.js'
+import request from '@/utils/request'
 Vue.prototype.$ajax = request
 
 import '@/assets/css/reset.css'
 import '@/assets/css/common.css'
 
+import '@/utils/flexible'
 
-import '@/utils/flexible.js'
+/* 全局引入过滤器 */
+import * as filters from './utils/filters'
+Object.keys(filters).forEach(key => {
+	Vue.filter(key, filters[key])
+})
 
 Vue.config.productionTip = false
 
