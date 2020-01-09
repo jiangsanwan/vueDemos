@@ -51,3 +51,7 @@ table {
 input::-webkit-input-placeholder {
   color: #A7A7A7;
 }
+textarea {
+  resize: none;
+  outline: none;
+}

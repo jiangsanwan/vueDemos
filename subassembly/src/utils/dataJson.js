@@ -1920,8 +1920,41 @@ let data2019 = [
 	{ fiveData: [2, 3, 13, 19, 26], twoData: [2, 3] },
 	{ fiveData: [3, 6, 9, 23, 34], twoData: [2, 11] },
 	{ fiveData: [6, 15, 17, 22, 25], twoData: [1, 9] },
-	{ fiveData: [1, 2, 3, 7, 17], twoData: [4, 10] }
+	{ fiveData: [1, 2, 3, 7, 17], twoData: [4, 10] },
+	{ fiveData: [5, 19, 25, 31, 33], twoData: [10, 11] },
+	{ fiveData: [3, 13, 15, 26, 30], twoData: [5, 12] },
+	{ fiveData: [7, 17, 26, 27, 30], twoData: [6, 12] },
+	{ fiveData: [5, 8, 9, 14, 34], twoData: [2, 5] },
+	{ fiveData: [5, 9, 16, 18, 30], twoData: [4, 7] },
+	{ fiveData: [4, 7, 8, 11, 16], twoData: [9, 11] },
+	{ fiveData: [20, 21, 25, 34, 35], twoData: [3, 12] },
+	{ fiveData: [10, 13, 18, 23, 30], twoData: [6, 12] },
+	{ fiveData: [1, 13, 20, 21, 24], twoData: [4, 10] },
+	{ fiveData: [5, 6, 14, 27, 29], twoData: [6, 10] },
+	{ fiveData: [3, 5, 6, 13, 18], twoData: [10, 12] },
+	{ fiveData: [3, 12, 24, 27, 34], twoData: [1, 12] },
+	{ fiveData: [1, 13, 20, 21, 24], twoData: [4, 10] },
+	{ fiveData: [5, 6, 7, 14, 17], twoData: [10, 11] },
+	{ fiveData: [4, 5, 19, 25, 26], twoData: [1, 11] },
+	{ fiveData: [3, 16, 20, 26, 29], twoData: [3, 9] },
+	{ fiveData: [3, 5, 12, 13, 26], twoData: [7, 12] },
+	{ fiveData: [4, 6, 7, 20, 29], twoData: [2, 4] },
+	{ fiveData: [1, 5, 7, 8, 11], twoData: [6, 10] },
+	{ fiveData: [3, 7, 8, 25, 27], twoData: [3, 5] },
+	{ fiveData: [2, 10, 20, 21, 35], twoData: [1, 12] },
+	{ fiveData: [3, 4, 26, 29, 33], twoData: [6, 7] },
+	{ fiveData: [4, 22, 23, 24, 32], twoData: [6, 12] },
+	{ fiveData: [2, 5, 20, 28, 31], twoData: [2, 11] },
+	{ fiveData: [5, 9, 19, 22, 32], twoData: [3, 5] },
+	{ fiveData: [10, 11, 26, 33, 34], twoData: [1, 6] },
+	{ fiveData: [9, 12, 19, 22, 33], twoData: [7, 8] },
+	{ fiveData: [3, 4, 7, 11, 30], twoData: [8, 9] },
+	{ fiveData: [1, 2, 7, 33, 35], twoData: [6, 10] },
+	{ fiveData: [7, 11, 12, 16, 33], twoData: [5, 7] }
 ];
+let data2020 = [
+	{ fiveData: [17, 25, 26, 32, 34], twoData: [4, 7] }
+]
 
 export {
 	data2007,
@@ -1936,7 +1969,8 @@ export {
 	data2016,
 	data2017,
 	data2018,
-	data2019
+	data2019,
+	data2020
 }
 
 

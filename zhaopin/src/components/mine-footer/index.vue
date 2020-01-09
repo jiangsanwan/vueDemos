@@ -9,10 +9,10 @@
                 <div class="iconfont" :class="{'icon-favorite': selected != 'follow', 'icon-favorite-fill': selected == 'follow'}"></div>
                 <div>收藏</div>
             </mt-tab-item>
-            <mt-tab-item id="message" @click.native="changeTab('消息', '/message')">
+            <mt-tab-item class="mine-message" id="message" @click.native="changeTab('消息', '/message')">
                 <div class="iconfont" :class="{'icon-message': selected != 'message', 'icon-message-fill': selected == 'message'}"></div>
                 <div>消息</div>
-                <!-- <mt-badge type="error">10</mt-badge> -->
+                <mt-badge type="error" v-if="unreadNo > 0">{{ unreadNo }}</mt-badge>
             </mt-tab-item>
             <mt-tab-item id="user" @click.native="changeTab('我的', '/user')">
                 <div class="iconfont" :class="{'icon-my': selected != 'user', 'icon-my-fill': selected == 'user'}"></div>
@@ -22,14 +22,52 @@
     </div>
 </template>
 <script>
+    import EventBus from '@/utils/eventBus'
+    import socket from '@/utils/socket'
+    import { mapState } from 'vuex'
     export default {
         name: 'MineFooter',
-        data () {
-            return {
-                selected: 'home'
+        computed: {
+            ...mapState({
+                chatLists: state => state.chatLists,
+            }),
+            to () {
+                return JSON.parse(sessionStorage.getItem('loginUserInfo'))._id
             }
         },
+        watch: {
+            chatLists (value) {// 
+                let no = 0
+                value.forEach(v => {
+                    no += v.readNo
+                })
+                this.unreadNo = no
+            }
+        },
+        data () {
+            return {
+                selected: 'home',
+                unreadNo: 0,
+            }
+        },
+        mounted () {
+            let _this = this
+            EventBus.$on('unreadMsgNo', function(no) {
+                _this.unreadNo = no
+            })
+            this._initGetMsgList()
+        },
         methods: {
+            _initGetMsgList () {// 获取用户聊天列表
+                let tempUrl = this.$route.path.split('/')[1]
+                if(tempUrl == 'boss' || tempUrl == 'genius') {
+                    this.selected = 'home'
+                } else {
+                    this.selected = tempUrl
+                }
+                this.$store.commit('SET_SHOWMINEFOOTER', true)
+                socket.emit('getChatList', { to: this.to, from: this.to })
+            },
             changeTab (title, link) {
                 this.$store.state.commonTitle.title = title
                 if(!link) {
@@ -50,5 +88,6 @@
             margin-bottom: 6px;
             font-size: 25px;
         }
+        
     }
 </style>

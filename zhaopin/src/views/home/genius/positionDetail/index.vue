@@ -15,11 +15,11 @@
 					<div class="flex hw-com flex-c-fs">
 						<div class="flex flex-a-c"><i class="iconfont icon-position"></i>{{ detailObj.briefAddress }}</div>
 						<div class="flex flex-a-c"><i class="iconfont icon-company"></i>{{ detailObj.workingYearsMin | formatWorkingYears(false) }}-{{ detailObj.workingYearsMax | formatWorkingYears(true) }}</div>
-						<div class="flex flex-a-c"><i class="iconfont icon-idcard"></i>{{ detailObj.education }}</div>
+						<div class="flex flex-a-c"><i class="iconfont icon-idcard"></i>{{ detailObj.education | educationFilter }}</div>
 					</div>
 				</div>
 				<div class="thin-width"></div>
-				<div class="flex public-wrapper">
+				<div class="flex public-wrapper" @click="$router.push(`/allPositions/${detailObj.publicId}`)">
 					<div class="p-avatar">
 						<img src="@/assets/imgs/defaultAvatar.png" alt="">
 					</div>
@@ -43,10 +43,16 @@
 						<li v-for="(item, index) in detailObj.positionDetails" :key="index">{{ index + 1 }}、{{ item }}</li>
 					</ul>
 					<!-- 任职资格 -->
-					<ul class="qualification">
-						<li class="i-t">任职资格:</li>
-						<li v-for="(item, index) in detailObj.qualification" :key="index">{{ item }}</li>
-					</ul>
+					<div class="i-t" :class="{'mb02rem': !moreShow}">
+						任职要求
+						<span>{{ !moreShow ? '…' : ':'}}</span>
+						<span class="color26a2ff" v-show="!moreShow" @click="moreShow = true">查看全部</span>
+					</div>
+					<transition name="fade-transform" mode="out-in">
+						<ul class="qualification" v-show="moreShow">
+							<li v-for="(item, index) in detailObj.qualification" :key="index">{{ item }}</li>
+						</ul>
+					</transition>
 					<!-- 技术相关标签 -->
 					<ul class="flex skills-required">
 						<li v-for="(item, index) in detailObj.skillsRequired" :key="index">{{ item }}</li>
@@ -61,42 +67,40 @@
 					<div class="other-info">{{ detailObj.teamIntroduction.otherInfo }}</div>
 				</div>
 				<div class="thin-width"></div>
-				<div class="flex company-brief">
+				<div class="flex company-brief" @click="$router.push(`/companyDetail/${detailObj.publicId}`)">
 					<div class="logo">
 						<img src="@/assets/imgs/defaultAvatar.png" alt="">
 					</div>
 					<div class="flex_1 c-b-cont">
 						<div class="c-b-c-title">{{ detailObj.company }}</div>
-						<div class="flex c-b-c-text">{{ detailObj.finance }} · {{ detailObj.scaleMin }}-{{ detailObj.scaleMax }}人 · {{ detailObj.companyType }}</div>
+						<div class="flex c-b-c-text">{{ detailObj.finance | financeFilter }} · {{ detailObj.scaleMin }}-{{ detailObj.scaleMax }}人 · {{ detailObj.companyType }}</div>
 					</div>
 					<div class="p-more">
 						<span class="iconfont icon-arrowRight"></span>
 					</div>
 				</div>
-			</div>
-			<div class="map">
-				<div class="allmap" id="allmap" ref="allmap"></div>
-			</div>
-			<div class="padding-l-r-10px">
+
+				<div class="map">
+					<div class="allmap" id="allmap" ref="allmap"></div>
+				</div>
 				<div class="reminder">
 					<div class="colorf56c6c font-size-14rem title">温馨提示</div>
-					<div class="font-size-12rem">该Boss承诺名下所有职位不向您收费，如有不实，请立即举报。</div>
+					<div class="color606266 font-size-12rem">该Boss承诺名下所有职位不向您收费，如有不实，请立即举报。</div>
 				</div>
 				<div class="thin-width"></div>
 				<div class="competitiveness-analysis">
 					<div class="flex">
-						<div>你的竞争力分析</div>
-						<div>使用竞争力分析器<span class="iconfont icon-arrowRight"></span></div>
+						<div class="font-size-16rem fw550">你的竞争力分析</div>
+						<div class="flex font-size-12rem">使用竞争力分析器<span class="iconfont icon-arrowRight"></span></div>
 					</div>
-					<div class="text">近90天共有<span></span>牛人沟通过该职位，您是第<span></span>个</div>
+					<div class="mt02rem text">近90天共有{{ detailObj.visitorsNumber }}位牛人沟通过该职位，您是第<span></span>个</div>
 					<div class="text">您在当前竞聘者中综合竞争力排名是第<span></span>位</div>
 				</div>
 			</div>
 		</div>
-		<mine-communicate-footer :id="id"></mine-communicate-footer>
+		<mine-communicate-footer :id="publicId"></mine-communicate-footer>
 	</div>
 </template>
-<!-- <script type="text/ecmascript-6"> -->
 <script>
 	import MineBtnsHeader from '@/components/mine-btns-header/index'
 	import MineCommunicateFooter from '@/components/mine-communicate-footer/index'
@@ -109,6 +113,7 @@
 		data () {
 			return {
 				id: this.$route.params.id,
+				publicId: '',
 				headerObj: {
 					title: '',
 					more: [ 'icon-favorite', 'icon-warning', 'icon-share' ]
@@ -120,7 +125,8 @@
 					zoom: 18,
 					lat: null,
 					lng: null
-				}
+				},
+				moreShow: false
 			}
 		},
 		mounted () {
@@ -156,10 +162,11 @@
 						this.detailObj.skillsRequired = this.detailObj.skillsRequired.split('###')
 						this.detailObj.teamIntroduction = JSON.parse(this.detailObj.teamIntroduction)
 						this.detailObj.teamIntroduction.teamLabel = this.detailObj.teamIntroduction.teamLabel.split('###')
+						this.publicId = this.detailObj.publicId
 					}
 				})
 				.catch(err => {
-					console.og(err)
+					console.log(err)
 				})
 			}
 		}
@@ -251,6 +258,13 @@
 					font-color(#000);
 					font-weight(550);
 				}
+				div.i-t {
+					font-size(.14rem);
+					line-height(.24rem);
+					&.mb02rem {
+						margin-bottom(.2rem)
+					}
+				}
 				ul {
 					li {
 						&.i-t {
@@ -326,6 +340,8 @@
 			}
 			.map {
 				height(2rem);
+				border-radius(.1rem);
+				overflow: hidden;
 				.allmap {
 					height(2rem);
 				}
@@ -335,6 +351,35 @@
 				.title {
 					padding-bottom(.12rem);
 					font-weight(500);
+				}
+			}
+			.competitiveness-analysis {
+				padding-t-b(.2rem);
+				.flex {
+					align-items(center);
+					justify-content(space-between);
+					.flex {
+						align-items(center);
+					}
+				}
+				.text {
+					padding-t-b(.1rem);
+					font-color(#666);
+					span {
+						position(relative);
+						top(.02rem);
+						display(inline-block);
+						margin-right(6px)
+						margin-left(2px)
+						width(.1rem);
+						height(.1rem);
+						background(#afeeee);
+						box-shadow: .04rem -0.04rem #e1ffff;
+						filter: blur(.01rem);
+					}
+					&.mt02rem {
+						margin-top(.2rem);
+					}
 				}
 			}
 		}

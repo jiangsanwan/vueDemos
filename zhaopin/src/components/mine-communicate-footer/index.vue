@@ -15,7 +15,10 @@
 		},
 		methods: {
 			communicateEvent () {
-				this.$router.push({path: '/message', query: { id: this.id }})
+				let from = JSON.parse(sessionStorage.getItem('loginUserInfo'))._id,
+					to = this.id,
+					chatid = [ from, to ].sort().join('_');
+				this.$router.push(`/chatRoom/${chatid}`)
 			}
 		}
 	}

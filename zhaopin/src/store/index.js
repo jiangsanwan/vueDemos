@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
 import request from './../utils/request.js'
 
 Vue.use(Vuex)
@@ -23,7 +24,11 @@ export default new Vuex.Store({
 		},
 		type: '',
 		token: sessionStorage.getItem('token') || '',
-		showMineFooter: true
+		showMineFooter: true,
+		chatLists: [],
+		chatListsChatId: [],
+		// chatmsgs: {},
+		chatIcon: ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '😊', '😇', '🙂', '🙃', '😉', '😓', '😪', '😴', '🙄', '🤔', '😬', '🤐', '🙌', '👏', '👋', '👍', '👎', '👊', '✊', '️👌', '✋', '👐', '💪', '🙏', '️👆', '👇', '👈', '👉', '🖕', '🖐', '🤘']
 	},
 	mutations: {
 		SET_USERINFO (state, value) {
@@ -37,6 +42,16 @@ export default new Vuex.Store({
 		},
 		SET_SHOWMINEFOOTER (state, value) {
 			state.showMineFooter = value
+		},
+		SET_CHATLISTS (state, value) {
+			state.chatLists = value
+		},
+		SET_CHATLISTSCHATID (state, value) {
+			state.chatListsChatId = value
+		},
+		SET_CHATMSGS (state, value) {
+			// state.chatmsgs = value
+			state.chatListsChatId.push(value)
 		}
 	},
 	actions: {
@@ -55,8 +70,23 @@ export default new Vuex.Store({
 		positionList ({ commit, despatch, state }, params) {// 牛人获取职位列表
 			return request.get(`${api}/position/list`, params)
 		},
-		getPositionDetailById({ commit, despatch, state }, params) {// 牛人根据id值获取职位详情
+		getPositionDetailById ({ commit, despatch, state }, params) {// 牛人根据id值获取职位详情
 			return request.get(`${api}/position/detail`, params)
-		}
+		},
+		changeVisitors ({ commit, despatch, state }, params) {// 修改职位被浏览次数
+			return request.get(`${api}/position/changeVisitors`, params)
+		},
+		getBaseInfo ({ commit, despatch, state }, params) {// 过去基本信息
+			return request.get(`${api}/user/getBaseInfo`, params)
+		},
+		setApply ({ commit, dispatch, state }, data) {// 想看他的故事或者工作伙伴
+			return request.post(`${api}/user/setApply`, data)
+		},
+		addPosition ({ commit, dispatch, state }, data) {// 新增职位
+			return request.post(`${api}/position/addPosition`, data)
+		},
+		changeMsgRead ({ commit, dispatch, state }, data) {// 根据chatId和传入的from修改聊天记录的已读状态
+			return request.post(`${api}/chat/changeMsgRead`, data)
+		},
 	}
 })

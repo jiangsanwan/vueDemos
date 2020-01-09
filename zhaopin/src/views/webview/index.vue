@@ -38,7 +38,7 @@
         top: 0;
         right: 0;
         left: 0;
-        overflow-y: visible;
+        overflow-y: auto;
         &.b60px {
             bottom: 60px;
         }

@@ -5,7 +5,8 @@
 			<mt-spinner class="flex-center" v-show="dataLists.length == 0 && InitialLoading" color="#26a2ff" type="fading-circle"></mt-spinner>
 			<mt-loadmore :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
 				<ul class="position-wrapper">
-					<li v-for="item in dataLists" :key="item._id" @click="goToDetail(item)">
+					<!-- <li v-for="item in dataLists" :key="item._id" @click="$router.push(`/positionDetail/${item._id}`)"> -->
+					<li v-for="item in dataLists" :key="item._id" @click="gotoDetail(item._id)">
 						<div class="position-title">
 							<p class="t">{{ item.title }}</p>
 							<p class="s">
@@ -16,12 +17,12 @@
 						</div>
 						<div class="company-info">
 							<p class="c">{{ item.company }}</p>
-							<p class="f">{{ item.finance }}</p>
+							<p class="f">{{ item.finance | financeFilter }}</p>
 						</div>
 						<div class="company-address">
 							<p class="b">{{ item.briefAddress }}</p>
-							<p class="w">{{ item.workingYears }}</p>
-							<p class="e">{{ item.education }}</p>
+							<p class="w">{{ item.workingYearsMin | formatWorkingYears(false) }}-{{ item.workingYearsMax | formatWorkingYears(true) }}</p>
+							<p class="e">{{ item.education | educationFilter }}</p>
 						</div>
 						<div class="boss-info">
 							<img class="avatar" src="@/assets/imgs/defaultAvatar.png" alt="">
@@ -44,13 +45,18 @@
 		</div>
 	</div>
 </template>
-<!-- <script type="text/ecmascript-6"> -->
 <script>
 	import posHeader from './pos-header/index'
+	import { mapState } from 'vuex'
 	export default {
 		name: 'Genius',
 		components: {
 			posHeader
+		},
+		computed: {
+			...mapState({
+				duration: state => state.duration
+			}),
 		},
 		data () {
 			return {
@@ -127,67 +133,29 @@
 				// 条件修改，重新获取数据
 				this.loadTop()
 			},
-			goToDetail (item) {
-				this.$router.push(`/positionDetail/${item._id}`)
+			gotoDetail (_id) {
+				this.$store.dispatch('changeVisitors', { _id: _id })
+				.then(d => {
+					if(d.data.code == 0) {
+						this.$router.push(`/positionDetail/${_id}`)
+					} else {
+						this.$toast({ message: d.data.message, position: 'middle', duration: this.duration })
+					}
+				})
+				.catch(err => {
+					console.log(err)
+				})
 			}
 		},
 	}
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
 	@import './../../../assets/stylus/reset'
+	@import './../../../assets/stylus/position_wrapper'
 	.genius {
 		overflow: scroll;
 		.outer-wrapper {
 			margin-top(81px)
-			.position-wrapper {
-				li {
-					padding: .18rem .16rem;
-					border-bottom: .08rem solid #f3f3f3;
-					div {
-						display: flex;
-						margin-bottom(.08rem);
-						align-items(center);
-						&.position-title {
-							justify-content(space-between);
-							font-color(#333)
-							.t {
-								font-size(.16rem);
-								font-weight(600);	
-							}
-							.s {
-								font-color(#26a2ff);
-								font-weight(550);
-							}
-						}
-						&.company-info, &.company-address, &.boss-info {
-							font-color(#666)
-							.b, .c, .e, .f, .p, .w {
-								font-size(.12rem)
-							}
-							.f {
-								margin-left(.04rem)
-							}
-							.w {
-								margin-l-r(.06rem)
-							}
-						}
-						&.company-address {
-							margin-bottom(.12rem)
-						}
-						&.boss-info {
-							margin-bottom(0)
-							.avatar {
-								width(.24rem);
-								height(.24rem);
-								margin-right(.06rem);
-							}
-							.dot {
-								padding-l-r(.04rem)
-							}
-						}
-					}
-				}
-			}
 		}
 	}
 </style>

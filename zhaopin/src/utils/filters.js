@@ -67,3 +67,29 @@ export function userActiveFilter (input, timeStamp) {
 		}
 	}
 }
+/**
+ * 学历
+ * 初中及以下 1，中专/中技 2，高中 3，大专 4，本科 5，硕士 6，博士 7
+ */
+let educationArr = ['-', '初中及以下', '中专/中技', '高中', '大专', '本科', '硕士', '博士']
+export function educationFilter (input) {
+	if(input) {
+		input = Number(input)
+		return educationArr[input]
+	} else {
+		return educationArr[0]
+	}
+}
+/**
+ * 公司财政
+ * 不需要融资 6，已上市 5，天使轮 7，A轮 1，B轮 2，C轮 3，D轮 4
+ */
+let financeArr = ['-', 'A轮', 'B轮', 'C轮', 'D轮', '已上市', '不需要融资', '天使轮']
+export function financeFilter (input) {
+	if(input) {
+		input = Number(input)
+		return financeArr[input]
+	} else {
+		return financeArr[0]
+	}
+}

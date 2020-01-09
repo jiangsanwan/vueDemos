@@ -27,7 +27,7 @@
 <script>
     import logo from '@/assets/imgs/logo.png'
     import { resetStatus } from '@/utils/common'
-    import { mapState, mapActions } from 'vuex'
+    import { mapState } from 'vuex'
     import { sha256 } from 'utility'
     export default {
 		name: 'Login',
@@ -124,6 +124,7 @@
                             this.$store.commit('SET_TYPE', d.data.data.type)
                             this.$store.commit('SET_TOKEN', d.data.data.token)
                             sessionStorage.setItem('token', d.data.data.token)
+                            sessionStorage.setItem('loginUserInfo', JSON.stringify(d.data.data))
                             this.$router.push(url)
                         } else {
                             this.loginStatus.user = 'error'

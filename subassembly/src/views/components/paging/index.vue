@@ -78,7 +78,7 @@
 				total: 0,
 				pagegroup: 6,
 				pagingIndex: 1,
-				whichYear: 2019,
+				whichYear: new Date().getFullYear(),
 				yearArr: [],
 				curData: [],
 				currentData: [],

@@ -35,9 +35,29 @@ export default new Router({
 					component: () => import('@/views/home/genius/positionDetail/index')
 				},
 				{
+					path: '/allPositions/:id',
+					name: 'AllPositions',
+					component: () => import('@/views/home/genius/allPositions/index')
+				},
+				{
+					path: '/companyDetail/:id',
+					name: 'CompanyDetail',
+					component: () => import('@/views/home/genius/companyDetail/index')
+				},
+				{
 					path: '/boss',
 					name: 'Boss',
 					component: () => import('@/views/home/boss/index')
+				},
+				{
+					path: '/addPosition',
+					name: 'AddPosition',
+					component: () => import('@/views/home/boss/addPosition/index')
+				},
+				{
+					path: '/editCompany',
+					name: 'EditCompany',
+					component: () => import('@/views/home/boss/editCompany/index')
 				},
 				{
 					path: '/follow',
@@ -48,6 +68,11 @@ export default new Router({
 					path: '/message',
 					name: 'Message',
 					component: () => import('@/views/message/index')
+				},
+				{
+					path: '/chatRoom/:chatid',
+					name: 'Chatroom',
+					component: () => import('@/views/message/chatRoom/index')
 				},
 				{
 					path: '/user',

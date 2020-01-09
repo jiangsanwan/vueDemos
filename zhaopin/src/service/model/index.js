@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 // 连接数据库
 const DB_URL = 'mongodb://localhost:27017/fremember'
-mongoose.connect(DB_URL, { useNewUrlParser: true })
+mongoose.connect(DB_URL,  { useNewUrlParser: true, useUnifiedTopology: true })
 
 let user = require('./user')
 let chat = require('./chat')

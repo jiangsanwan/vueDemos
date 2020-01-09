@@ -10,6 +10,25 @@
 	align-items: center;
 	justify-content: center;
 }
+.tal {
+	text-align: left;
+}
+.tac {
+	text-align: center;
+}
+.tar {
+	text-align: right;
+}
+.thin-width {
+	width: 100%;
+	height: 1px;
+	background: #d9d9d9;
+}
+.thin-height {
+	width: 1px;
+	height: 100%;
+	background: #d9d9d9;
+}
 .mine-mt-field .mint-cell-title {
 	width: .65rem;
 }
@@ -42,6 +61,13 @@
 .mint-header-title {
 	font-size: .16rem;
 }
+.mint-cell-wrapper-pos-b .mint-cell-wrapper {
+	background-position: bottom left;
+	background-origin: border-box;
+}
+.no-input .mint-field-core {
+	display: none;
+}
 .thin-width {
 	width: 100%;
 	height: 1px;
@@ -71,22 +97,22 @@
 	-webkit-animation: masked-animation 2s infinite linear;
 }
 
-/* 设置滚动条的样式 */
-::-webkit-scrollbar {
-	width: 4px;
-	background-color: #fff;
-	box-shadow: 0 2px 0 0 #eee;
-}
-
-/* 滚动槽 */
-::-webkit-scrollbar-track {
-	border-radius: 10px;
-}
-
-/* 滚动条滑块 */
+/* 滚动条 */
 ::-webkit-scrollbar-thumb {
+	-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+	background: rgba(0,0,0,0.2);
 	border-radius: 10px;
-	background: #eee;
+}
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+	background: rgba(0,0,0,0.1);
+	border-radius: 0;
+}
+::-webkit-scrollbar {
+	width: 2px;
+}
+.inputs::-webkit-scrollbar {
+	width: 0;
 }
 /* 隐藏百度地图的logo水印 */
 .anchorBL{
@@ -154,13 +180,13 @@
 .bdcolor-dcdfe6 {
 	border-color: #dcdfe6;
 }
-.dbcolor-e4e7ed {
+.bdcolor-e4e7ed {
 	border-color: #e4e7ed;
 }
 .bdcolor-ebeef5 {
 	border-color: #ebeef5;
 }
-.dbcolor-f2f6fc {
+.bdcolor-f2f6fc {
 	border-color: #f2f6fc;
 }
 .font-size-16rem {
@@ -173,10 +199,30 @@
 	font-size: .12rem;
 }
 
+/* fade-transform */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all .5s;
+}
+.fade-transform-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
 
 
-
-
+/* 添加mint-ui新样式 */
+.mine-message {
+	position: relative;
+}
+.mine-message .mint-badge {
+	position: absolute;
+	top: 5px;
+	left: 55%;
+}
 
 
 

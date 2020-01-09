@@ -12,6 +12,7 @@
     "better-scroll": "^1.15.2",
     "core-js": "^2.6.5",
     "mint-ui": "^2.2.13",
+    "socket.io-client": "^2.3.0",
     "utility": "^1.16.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",

@@ -9,7 +9,18 @@
 				<mt-field class="mine-mt-field" label="用户名" v-model="registerObj.user" type="text" placeholder="用户名" :state="registerStatus.user" @blur.native.capture="checkUser"></mt-field>
 				<mt-field class="mine-mt-field" label="登录密码" v-model="registerObj.pwd" placeholder="登录密码" type="password" :state="registerStatus.pwd" @blur.native.capture="checkPwd1"></mt-field>
 				<mt-field class="mine-mt-field" label="确认密码" v-model="registerObj.checkPwd" placeholder="确认密码" type="password" :state="registerStatus.checkPwd" @blur.native.capture="checkPwd2"></mt-field>
+				<mt-field class="mine-mt-field" label="职位" v-model="registerObj.title" type="text" placeholder="请输入职位" :state="registerStatus.title" @blur.native.capture="checkInput('title', '请输入职位')"></mt-field>
 				<mt-radio class="flex mine-mt-radio" title="用户类型" v-model="registerObj.type" :options="['Genius', 'Boss']" :state="registerStatus.type"></mt-radio>
+				<mt-field v-if="registerObj.type == 'Boss'" class="mine-mt-field" label="简介" placeholder="个人简介或者职位简介" type="textarea" rows="4" v-model="registerObj.desc" :state="registerStatus.desc"  @blur.native.capture="checkInput('desc', '请输入个人简介或者职位简介')"></mt-field>
+				<mt-field v-if="registerObj.type == 'Boss'" class="mine-mt-field" label="公司名称" v-model="registerObj.company" type="text" placeholder="公司名称" :state="registerStatus.company" @blur.native.capture="checkInput('company', '请输入公司名称')"></mt-field>
+				<mt-field v-if="registerObj.type == 'Boss'" class="mine-mt-field" label="公司财政" v-model="registerObj.finance" type="text" placeholder="公司财政" :state="registerStatus.finance" @blur.native.capture="checkInput('finance', '请输入公司财政')"></mt-field>
+				<mt-field v-if="registerObj.type == 'Boss'" class="mine-mt-field" label="公司类型" v-model="registerObj.companyType" type="text" placeholder="公司类型" :state="registerStatus.companyType" @blur.native.capture="checkInput('companyType', '请输入公司类型')"></mt-field>
+				<mt-field v-if="registerObj.type == 'Boss'" class="mine-mt-field" label="规模下线" v-model="registerObj.scaleMin" type="text" placeholder="公司人数最小值" :state="registerStatus.scaleMin" @blur.native.capture="checkInput('scaleMin', '请输入规模下线')"></mt-field>
+				<mt-field v-if="registerObj.type == 'Boss'" class="mine-mt-field" label="规模上限" v-model="registerObj.scaleMax" type="text" placeholder="公司人数最大值" :state="registerStatus.scaleMax" @blur.native.capture="checkInput('scaleMax', '请输入规模上限')"></mt-field>
+				<mt-field v-if="registerObj.type == 'Boss'" class="mine-mt-field" label="简介" placeholder="公司介绍" type="textarea" rows="4" v-model="registerObj.teamIntroduction" :state="registerStatus.teamIntroduction"  @blur.native.capture="checkInput('teamIntroduction', '请输入公司介绍')"></mt-field>
+				<mt-field v-if="registerObj.type == 'Boss'" class="mine-mt-field" label="详细地址" v-model="registerObj.detailedAddress" type="text" placeholder="详细地址" :state="registerStatus.detailedAddress" @blur.native.capture="checkInput('detailedAddress', '请输入详细地址')"></mt-field>
+				<mt-field v-if="registerObj.type == 'Boss'" class="mine-mt-field" label="简短地址" v-model="registerObj.briefAddress" type="text" placeholder="简短地址" :state="registerStatus.briefAddress" @blur.native.capture="checkInput('briefAddress', '请输入简短地址')"></mt-field>
+				<mt-field v-if="registerObj.type == 'Boss'" class="mine-mt-field" label="所在城市" v-model="registerObj.city" type="text" placeholder="所在城市" :state="registerStatus.city" @blur.native.capture="checkInput('city', '请输入所在城市')"></mt-field>
 				<mt-field class="mine-mt-field" label="验证码" v-model="registerObj.imgCode" placeholder="验证码" :state="registerStatus.imgCode" @blur.native.capture="checkImgCode">
                     <div height="45px" width="100px" v-html="imgCodeUrl" @click="_initImgVerify"></div>
                 </mt-field>
@@ -42,14 +53,36 @@
 					pwd: '',
 					checkPwd: '',
 					type: '',
-					imgCode: ''
+					imgCode: '',
+					title: '',
+					desc: '',
+					company: '',
+					finance: '',
+					companyType: '',
+					scaleMin: '',
+					scaleMax: '',
+					teamIntroduction: '',
+					detailedAddress: '',
+					briefAddress: '',
+					city: ''
 				},
 				registerStatus: {
 					user: '',
 					pwd: '',
 					checkPwd: '',
 					type: '',
-					imgCode: ''
+					imgCode: '',
+					title: '',
+					desc: '',
+					company: '',
+					finance: '',
+					companyType: '',
+					scaleMin: '',
+					scaleMax: '',
+					teamIntroduction: '',
+					detailedAddress: '',
+					briefAddress: '',
+					city: ''
 				},
 				imgCodeUrl: ''
 			}
@@ -168,15 +201,33 @@
 				resetStatus(this.registerObj, '')
 				resetStatus(this.registerStatus, '')
 			},
+			checkInput (attr, msg) {
+				if(!this.registerObj[attr]) {
+					this.$toast({ message: msg, position: 'middle', duration: this.duration })
+					this.registerStatus[attr] = 'error'
+					return
+				} else {
+					this.registerStatus[attr] = 'success'
+				}
+			},
 			registerEvent (index) {// 逻辑还需要修改
 				if(index == 0) {
 					this.r_reset()
 				} else {
 					let available = true
-					for(let attr in this.registerStatus) {
-						if(this.registerStatus[attr] == 'error') {
-							available = false
+					if(this.registerObj.type == 'Boss') {
+						for(let attr in this.registerStatus) {
+							if(this.registerStatus[attr] == 'error') {
+								available = false
+							}
 						}
+					} else {
+						let tempArr = ['user', 'pwd', 'checkPwd', 'type', 'imgCode', 'title']
+						tempArr.forEach(attr => {
+							if(this.registerStatus[attr] == 'error') {
+								available = false
+							}
+						})
 					}
 					if(available) {
 						let data = { ...this.registerObj }

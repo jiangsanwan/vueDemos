@@ -1,0 +1,50 @@
+@import './reset'
+.position-wrapper {
+	li {
+		padding: .18rem .16rem
+		border-bottom: .08rem solid #f3f3f3
+		div {
+			display: flex
+			margin-bottom(.08rem)
+			align-items(center)
+			&.position-title {
+				justify-content(space-between)
+				font-color(#333)
+				.t {
+					font-size(.16rem)
+					font-weight(600)
+				}
+				.s {
+					font-color(#26a2ff)
+					font-weight(550)
+				}
+			}
+			&.company-info, &.company-address, &.boss-info {
+				font-color(#666)
+				.b, .c, .e, .f, .p, .w {
+					font-size(.12rem)
+				}
+				.f {
+					margin-left(.04rem)
+				}
+				.w {
+					margin-l-r(.06rem)
+				}
+			}
+			&.company-address {
+				margin-bottom(.12rem)
+			}
+			&.boss-info {
+				margin-bottom(0)
+				.avatar {
+					width(.24rem)
+					height(.24rem)
+					margin-right(.06rem)
+				}
+				.dot {
+					padding-l-r(.04rem)
+				}
+			}
+		}
+	}
+}

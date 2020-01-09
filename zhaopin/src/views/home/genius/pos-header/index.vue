@@ -34,7 +34,7 @@
 	</div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 	export default {
 		name: 'posHeader',
 		data () {
@@ -91,7 +91,6 @@
 		left: 0;
 		z-index: 1060;
 		width: 100%;
-		height: 40px;
 		.tabs {
 			color: #fff;
 			background: #26a2ff;

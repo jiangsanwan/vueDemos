@@ -8,4 +8,13 @@ module.exports = {
 	code_6: { code: 6, message: '职位列表初始化失败' },
 	code_7: { code: 7, message: '图形验证码校验失败' },
 	code_8: { code: 8, message: '职位详情获取失败' },
+	code_9: { code: 9, message: '数据更新失败' },
+	code_10: { code: 10, message: '删除数据失败失败' },
+	code_11: { code: 11, message: '添加数据失败失败' },
+	code_12: { code: 12, message: '获取用户基本信息失败' },
+	code_13: { code: 13, message: '新增职位失败' },
+	code_14: { code: 14, message: '数据库连接失败' },
+	code_15: { code: 15, message: '创建聊天记录失败' },
+	code_16: { code: 16, message: '获取聊天列表失败' },
+	code_17: { code: 17, message: '修改聊天记录状态失败' },
 }
