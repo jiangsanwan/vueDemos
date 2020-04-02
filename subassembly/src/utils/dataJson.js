@@ -1953,7 +1953,23 @@ let data2019 = [
 	{ fiveData: [7, 11, 12, 16, 33], twoData: [5, 7] }
 ];
 let data2020 = [
-	{ fiveData: [17, 25, 26, 32, 34], twoData: [4, 7] }
+	{ fiveData: [17, 25, 26, 32, 34], twoData: [4, 7] },
+	{ fiveData: [3, 7, 18, 25, 30], twoData: [2, 7] },
+	{ fiveData: [23, 25, 26, 30, 34], twoData: [3, 7] },
+	{ fiveData: [17, 20, 21, 29, 30], twoData: [5, 9] },
+	{ fiveData: [6, 10, 33, 34, 35], twoData: [1, 3] },
+	{ fiveData: [9, 22, 25, 31, 32], twoData: [8, 12] },
+	{ fiveData: [2, 10, 19, 24, 30], twoData: [5, 8] },
+	{ fiveData: [14, 17, 19, 24, 32], twoData: [1, 6] },
+	{ fiveData: [19, 29, 31, 34, 35], twoData: [6, 10] },
+	{ fiveData: [1, 8, 13, 24, 32], twoData: [2, 9] },
+	{ fiveData: [2, 13, 19, 22, 23], twoData: [2, 7] },
+	{ fiveData: [1, 6, 18, 32, 34], twoData: [1, 3] },
+	{ fiveData: [1, 4, 5, 11, 35], twoData: [3, 9] },
+	{ fiveData: [3, 7, 9, 17, 21], twoData: [3, 6] },
+	{ fiveData: [1, 7, 23, 24, 26], twoData: [3, 7] },
+	{ fiveData: [4, 8, 19, 31, 35], twoData: [1, 2] },
+	{ fiveData: [1, 6, 7, 9, 10], twoData: [2, 11] }
 ]
 
 export {
