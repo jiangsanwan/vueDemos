@@ -67,8 +67,10 @@
 					<div class="other-info">{{ detailObj.teamIntroduction.otherInfo }}</div>
 				</div>
 				<div class="thin-width"></div>
-				<div class="flex company-brief" @click="$router.push(`/companyDetail/${detailObj.publicId}`)">
+				<!-- <div class="flex company-brief" @click="$router.push(`/companyDetail/${id}_${detailObj.publicId}`)"> -->
+				<div class="flex company-brief" @click="$router.push(`/companyDetail/${id}`)">
 					<div class="logo">
+						<!-- 这个其实是企业logo -->
 						<img src="@/assets/imgs/defaultAvatar.png" alt="">
 					</div>
 					<div class="flex_1 c-b-cont">
@@ -104,6 +106,7 @@
 <script>
 	import MineBtnsHeader from '@/components/mine-btns-header/index'
 	import MineCommunicateFooter from '@/components/mine-communicate-footer/index'
+	import { mapState } from 'vuex'
 
 	import { BaiduMap } from '@/utils/map'
 
@@ -154,7 +157,6 @@
 			initData () {
 				this.$store.dispatch('getPositionDetailById', { _id: this.id })
 				.then(d => {
-					console.log(d)
 					if(d.data.code == 0) {
 						this.detailObj = d.data.data
 						this.detailObj.positionDetails = this.detailObj.positionDetails.split('###')
@@ -163,6 +165,8 @@
 						this.detailObj.teamIntroduction = JSON.parse(this.detailObj.teamIntroduction)
 						this.detailObj.teamIntroduction.teamLabel = this.detailObj.teamIntroduction.teamLabel.split('###')
 						this.publicId = this.detailObj.publicId
+					} else {
+						this.$toast({ message: d.data.message, position: 'middle', duration: this.duration })
 					}
 				})
 				.catch(err => {

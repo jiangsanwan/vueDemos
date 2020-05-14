@@ -1,5 +1,5 @@
 <template>
-	<div class="mine-btns-header">
+	<div class="mine-btns-header" :class="{'bg102135': headerObj.headBg == 'bg102135'}">
 		<div class="goback" @click="gobackEvent">
 			<i class="iconfont icon-arrowLeft"></i>
 		</div>

@@ -16,19 +16,10 @@
             // mineHeader,
             mineFooter
         },
-        data () {
-            return {}
-        },
         computed: {
             showMineFooter () {
                 return this.$store.state.showMineFooter
             }
-        },
-        mounted () {
-            this.initHeight();
-        },
-        methods: {
-            initHeight () {}
         }
     }
 </script>

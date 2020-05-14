@@ -247,7 +247,9 @@
 			.brief-info {
 				height(176px)
 				padding-l-r(.14rem)
-				background(#f00)	
+				// background(#f00)
+				background(url('./../../../../assets/imgs/bossImgs/all_pos_bg.png')  no-repeat)
+				background-size: 100% 100%
 				.info {
 					padding-top(.3rem)
 					align-items(center)
@@ -280,7 +282,7 @@
 						font-size(.12rem)
 						border-radius(.12rem)
 						font-weight(500)
-						background(linear-gradient(0, rgba(255, 255, 255, .1) 0%, rgba(255, 255, 255, .25) 33%, rgba(255, 255, 255, .35) 50%, rgba(255, 255, 255, .25) 66%, rgba(255, 255, 255, .1) 100%))
+						background(linear-gradient(0, rgba(38, 162, 255, .2) 0%, rgba(38, 162, 255, .45) 33%, rgba(38, 162, 255, .65) 50%, rgba(38, 162, 255, .45) 66%, rgba(38, 162, 255, .5) 100%))
 						border: 1px solid #fff
 						&:not(:last-child) {
 							margin-right(.1rem)

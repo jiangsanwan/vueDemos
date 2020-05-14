@@ -153,7 +153,7 @@
 	@import './../../../assets/stylus/reset'
 	@import './../../../assets/stylus/position_wrapper'
 	.genius {
-		overflow: scroll;
+		overflow-x: hidden;
 		.outer-wrapper {
 			margin-top(81px)
 		}

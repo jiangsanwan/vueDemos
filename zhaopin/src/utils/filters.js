@@ -93,3 +93,42 @@ export function financeFilter (input) {
 		return financeArr[0]
 	}
 }
+
+/**
+ * 周末工作形式
+ * 0单双周、1双休、2单休、3无休
+ */
+let weekendArr = ['单双周', '双休', '单休', '无休', '-']
+export function weekendFilter (input) {
+	if(input != null) {
+		return weekendArr[input]
+	} else {
+		return weekendArr[weekendArr.length - 1]
+	}
+}
+/**
+ * 加班形式
+ * 0偶尔加班、1不加班、2加班调休、3弹性工作
+ */
+let overtimeArr = ['偶尔加班', '不加班', '加班调休', '弹性工作', '-']
+export function overtimeFilter (input) {
+	if(input != null) {
+		return overtimeArr[input]
+	} else {
+		return overtimeArr[overtimeArr.length - 1]
+	}
+}
+/**
+ * 限制内容长度
+ */
+export function limitLengthFilter (input, length) {
+	if(input == null) { 
+		return '-'
+	} else {
+		if(length == 0 || input.length < length) {
+			return input
+		} else {
+			return `${input.substr(0, length)}...`
+		}
+	}
+}

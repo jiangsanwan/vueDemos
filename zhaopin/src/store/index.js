@@ -76,6 +76,9 @@ export default new Vuex.Store({
 		changeVisitors ({ commit, despatch, state }, params) {// 修改职位被浏览次数
 			return request.get(`${api}/position/changeVisitors`, params)
 		},
+		getCompanyDetailById ({ commit, dispatch, state }, params) {// 根据招聘者publicId获取公司信息
+			return request.get(`${api}/company/detail`, params)
+		},
 		getBaseInfo ({ commit, despatch, state }, params) {// 过去基本信息
 			return request.get(`${api}/user/getBaseInfo`, params)
 		},
@@ -87,6 +90,6 @@ export default new Vuex.Store({
 		},
 		changeMsgRead ({ commit, dispatch, state }, data) {// 根据chatId和传入的from修改聊天记录的已读状态
 			return request.post(`${api}/chat/changeMsgRead`, data)
-		},
+		}
 	}
 })

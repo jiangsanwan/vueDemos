@@ -15,6 +15,7 @@ const io = require('socket.io')(server)
 const userRouter = require('./routers/user')
 const comRouter = require('./routers/common')
 const positionRouter = require('./routers/position')
+const companyRouter = require('./routers/company')
 const chatRouter = require('./routers/chat')
 
 // 全局校验接口的token
@@ -105,6 +106,7 @@ app.use(bodyParser.json())
 app.use('/user', userRouter)
 app.use('/common', comRouter)
 app.use('/position', positionRouter)
+app.use('/company', companyRouter)
 app.use('/chat', chatRouter)
 
 server.listen(9093, function() {

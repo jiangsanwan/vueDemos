@@ -1,4 +1,4 @@
-// 状态码
+// 状态码，注意已经到18了
 module.exports = {
 	code_1: { code: 1, message: '用户名已存在' },
 	code_2: { code: 2, message: '后端出错了' },
@@ -8,6 +8,7 @@ module.exports = {
 	code_6: { code: 6, message: '职位列表初始化失败' },
 	code_7: { code: 7, message: '图形验证码校验失败' },
 	code_8: { code: 8, message: '职位详情获取失败' },
+	code_18: { code: 18, message: '公司详情获取失败' },
 	code_9: { code: 9, message: '数据更新失败' },
 	code_10: { code: 10, message: '删除数据失败失败' },
 	code_11: { code: 11, message: '添加数据失败失败' },
