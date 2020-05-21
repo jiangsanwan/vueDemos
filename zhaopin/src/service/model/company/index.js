@@ -7,7 +7,7 @@ module.exports.company = {
 	'abstract': { 'type': String, 'require': true },// 公司简介
 	'introduceFigure': { 'type': String, 'require': true },// 图集
 	'introduce': { 'type': String, 'require': true },// {thumb(缩略图), title(标题), slogon(口号), label(标签)} 产品介绍
-	'executivesintroduce': { 'type': String, 'require': true },// [{avatar(头像),name(名字),position(职位),introduction(简介)}] 高管介绍
+	'executivesintroduce': { 'type': String, 'require': true },// [{avatar(头像),name(名字),position(职位),introduction(简介),publicId(发布者ID)}] 高管介绍
 	'businessAddress': { 'type': String, 'require': true },// 办公地址
 	'officialWebsite': { 'type': String, 'require': true },// 公司官网
 	'publicId': { 'type': String, 'require': true },// 招聘者信息
@@ -27,7 +27,7 @@ db.companys.insert({
 	'abstract': '"凯叔讲故事"微信公众号和"凯叔讲故事"APP由原中央电视台主持人王凯创办，每天与1300多万家庭互动分享，孩子的古诗大全，父母的育儿宝典。',
 	'introduceFigure': '1.jpg###2.jpg###3.jpg',
 	'introduce': '{"thumb": "ksjgs.png", "title": "凯叔讲故事","slogon":"让更多的孩子拥有幸福童年","label":"原创故事在线收听阅读"}',
-	'executivesintroduce': '{"avatar": "1.png","name":"王凯","position":"CEO","introduction":"一个有情怀的逗比主持人"},{"avatar": "1.png","name":"fremember","position":"Coo","introduction":"技术大牛"}',
+	'executivesintroduce': '[{"avatar": "1.png","name":"王凯","position":"CEO","introduction":"一个有情怀的逗比主持人","publicId": "5e0761666beddc0eed511051"},{"avatar": "1.png","name":"fremember","position":"Coo","introduction":"技术大牛","publicId": "5e0761666beddc0eed511051"}]',
 	'businessAddress': '北京朝阳区·国际广场T3楼4层###北京朝阳区望京东园保利国际广场T3',
 	'officialWebsite': 'http://www.kaishustory.com/',
 	'publicId': '5e07586eee14d60e86787577',

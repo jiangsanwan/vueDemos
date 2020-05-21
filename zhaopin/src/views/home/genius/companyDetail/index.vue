@@ -63,7 +63,39 @@
 							</li>
 						</ul>
 					</div>
-				</div>	
+				</div>
+				<div class="executives-introduce">
+					<div class="inner-title">热门BOSS</div>
+					<div class="e-i-wrapper" ref="executivesIntroduce">
+						<ul class="e-i-inner">
+							<li v-for="(item, index) in detailObj.executivesintroduce" :key="index" @click="$router.push(`/allPositions/${item.publicId}`)">
+								<img src="@/assets/imgs/defaultAvatar.png" alt="">
+								<p class="name">{{ item.name }}</p>
+								<p class="position">{{ item.position }}</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="business-information">
+					<div class="flex inner-title">
+						工商信息
+						<p class="flex view-more" @click="showComponentEvent('BiMoreinfo')">查看全部<span class="iconfont icon-arrowRight"></span></p>
+					</div>
+					<ul class="b-i-content">
+						<li>
+							<div class="k">公司全称</div>
+							<div class="v">{{ detailObj.businessInformation.CompanyFullName }}</div>
+						</li>
+						<li>
+							<div class="k">企业法人</div>
+							<div class="v">{{ detailObj.businessInformation.legalRepresentative }}</div>
+						</li>
+						<li>
+							<div class="k">官方地址</div>
+							<div class="v">{{ detailObj.officialWebsite }}</div>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<no-content v-else></no-content>
@@ -80,6 +112,7 @@
 	import MineBtnsHeader from '@/components/mine-btns-header/index'
 	import EmployeeWelfare from './employeeWelfare/index'
 	import AddressList from './addressList/index'
+	import BiMoreinfo from './businessInformation/index'
 	import NoContent from '@/components/no-content'
 	import { stringToObject } from '@/utils/common'
 	import { mapState } from 'vuex'
@@ -89,7 +122,7 @@
 	import figure3jpg from '@/assets/imgs/introduceFigure/3.jpg'
 	export default {
 		name: 'CompanyDetail',
-		components: { MineBtnsHeader, EmployeeWelfare, AddressList, NoContent },
+		components: { MineBtnsHeader, EmployeeWelfare, AddressList, BiMoreinfo, NoContent },
 		computed: {
 			...mapState({
 				duration: state => state.duration
@@ -120,6 +153,7 @@
 				welfareList: [],
 				modelScroll: null,
 				figureScroll: null,
+				executivesScroll: null,
 				abstractLength: 20,
 				figures: {
 					'1': figure1jpg,
@@ -187,6 +221,14 @@
 						});
 					} else {
 						this.figureScroll.refresh();
+					}
+					if(!this.executivesScroll) {
+						this.executivesScroll = new BScroll(this.$refs.executivesIntroduce, {
+							scrollX: true,
+							eventPassthrough: 'vertical'
+						});
+					} else {
+						this.executivesScroll.refresh();
 					}
 				})
 			},
@@ -347,6 +389,7 @@
 			}
 		}
 		.introduce-figure {
+			margin-bottom(.3rem)
 			.i-f-wrapper {
 				width(100%)
 				overflow: hidden
@@ -362,6 +405,67 @@
 						}
 						&:not(:last-child) {
 							margin-right(.1rem)
+						}
+					}
+				}
+			}
+		}
+		.executives-introduce {
+			margin-bottom(.3rem)
+			.e-i-wrapper {
+				width(100%)
+				overflow: hidden
+				white-space: nowrap
+				.e-i-inner {
+					width(392px)
+					li {
+						display(inline-block)
+						width(.6rem)
+						text-align(center)
+						img {
+							width(100%)
+						}
+						p {
+							&.name {
+								margin-top(.04rem)
+								font-size(.12rem)
+							}
+							&.position {
+								margin-top(.02rem)
+								font-size(.1rem)
+							}
+						}
+						&:not(:last-child) {
+							margin-right(.1rem)
+						}
+					}
+				}
+			}
+		}
+		.business-information {
+			padding-bottom(.3rem)
+			.inner-title {
+				align-items(center)
+				justify-content(space-between)
+				.view-more {
+					align-items(center)
+					line-height(.16rem)
+					font-size(.12rem)
+					font-weight(normal)
+				}
+			}
+			.b-i-content {
+				li {
+					height(.26rem)
+					display(flex)
+					align-items(center)
+					div {
+						font-size(.12rem)
+						&.k {
+							width(.7rem)
+						}
+						&.k {
+							flex(1)
 						}
 					}
 				}
