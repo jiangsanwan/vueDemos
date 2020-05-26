@@ -14,9 +14,8 @@ axios.interceptors.request.use((config:AxiosRequestConfig):AxiosRequestConfig =>
 axios.interceptors.response.use((response:AxiosResponse<any>):AxiosResponse<any> => {
 	if(response.data.code == 200) {
 		router.push('/login')
-	} else {
-		return response
 	}
+	return response
 })
 
 export default axios
