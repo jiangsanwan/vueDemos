@@ -7,5 +7,8 @@ export default {
     },
     mutations: {
         ...sudo.mutations
+    },
+    actions: {
+        ...sudo.actions
     }
 }

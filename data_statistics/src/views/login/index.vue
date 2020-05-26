@@ -62,6 +62,8 @@
                     this.login(data)
                     .then((d: any) => {
                         if(d.data.code == 0) {// 成功
+                            localStorage.setItem('fremember_dataStatistics_username', d.data.data.username)
+                            localStorage.setItem('fremember_dataStatistics_token', d.data.data.token)
                             this.$router.push('/home')
                         } else {
                             this.$message.warning(d.data.message)

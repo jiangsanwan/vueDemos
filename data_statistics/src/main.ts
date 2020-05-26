@@ -13,6 +13,8 @@ Vue.use(ElementUI)
 
 // 初始化状态 ---> 同步修改
 store.commit('games/SET_LEVELNUMBER', localStorage.getItem('fremember_dataStatistics_sudo_level'))
+store.commit('user/SET_USERNAME', localStorage.getItem('fremember_dataStatistics_username'))
+store.commit('user/SET_TOKEN', localStorage.getItem('fremember_dataStatistics_token'))
 
 Vue.config.productionTip = false
 

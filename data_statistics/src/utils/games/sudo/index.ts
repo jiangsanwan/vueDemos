@@ -5,7 +5,14 @@ import Checker from './core/checker'
  */
 export class Grid {
     public pazzleMatrix: Array<any> = []// 暴露给页面使用的数独数组
-    public stepArr: Array<any> = []// 用于记录数独的每一步操作
+    public stepArr: Array<any> = [// 用于记录数独的每一步操作
+        // {
+        //     rowIndex: 0,// 行数
+        //     colIndex: 0,// 列数
+        //     value: 0,// 行列对应位置的值
+        //     classType: 0// 元素的class类型，0：初始化的时候没有值，1：初始化的时候有值，2：输入后验证失败，3、标记输入的值
+        // }
+    ]
     private v: number// 生成数组时，填入数组元素中的初始值
     private len: number// 生成数组的长度
     private level: number// 数独的等级
@@ -55,6 +62,7 @@ export class Grid {
         let checker = new Checker(this.len, _data)
         // 检查成功，直接返回true
 		if(checker.check()) {
+            this.clearNotify()
 			return true
         }
         // 检查不成功，进行标记

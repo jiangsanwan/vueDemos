@@ -16,6 +16,7 @@
                 <li class="flex pos-a popup-wrapper" :style="{'top': posTop + 'px', 'left': posLeft + 'px'}" v-if="showPopup">
                     <div class="w-h-40px" v-for="item in 9" :key="item" @click="setItem(item)">{{ item }}</div>
                 </li>
+                <li class="tac use-time">用时：{{ useTimeStr }}</li>
             </ul>
             <ul class="flex operate-btns">
                 <li class="flex_1 tac" v-for="item in operateBtnList" :key="item.value" @click="operateEvent(item.value)">{{ item.text }}</li>
@@ -31,20 +32,26 @@
     import { Component, Vue } from 'vue-property-decorator'
     import { State, Getter, Action, Mutation, namespace } from 'vuex-class'
     import Grid from './../../../utils/games/sudo/index'
+    import CommonFn from './../../../utils/commonFn'
 
-    const gamesModule = namespace('games')
+    let gamesModule = namespace('games'),
+        userModule = namespace('user');
     @Component
     export default class Sudo extends Vue {
+        @userModule.State(state => state.username) username?: string
         @gamesModule.State(state => state.level_number) level_number?: string
+        @gamesModule.Action('sudo') sudo: any
 
         private grid: any = null// 数独对象
         private pazzleMatrix: Array<any> = []// 生成的数独二维数组
-        private showPopup: Boolean = false// 标识是否显示数字小面板
-        private posTop: Number = 0// 数字小面板的定位之top
-        private posLeft: Number = 0// 数字小面板的定位之left
-        private rowIndex: Number = 0// 点击元素所在的行
-        private colIndex: Number = 0// 点击元素所在的列
+        private showPopup: boolean = false// 标识是否显示数字小面板
+        private posTop: number = 0// 数字小面板的定位之top
+        private posLeft: number = 0// 数字小面板的定位之left
+        private rowIndex: number = 0// 点击元素所在的行
+        private colIndex: number = 0// 点击元素所在的列
         private levelNumber: any = '3'// 数独等级
+        private timer: any = null
+        private useTime: number = 0
         // 修改数据初始化的位置，添加state，然后再main.ts文件中初始化localStorage
         private levelList: Array<any> = [// 数独等级数组
             { value: '3', label: '简单' },
@@ -61,9 +68,12 @@
             { value: 5, text: '撤回', info: '撤销上一步填入的数据或做的颜色标记' },
             { value: 6, text: '重建', info: '重新初始化整个数据盘' }
         ]
+        private useTimeStr: string = '00:00:00'
+        private commonFn: any = null
         mounted (): void {
             this.levelNumber = this.level_number
             this.initGrid(this.levelNumber)
+            this.commonFn = new CommonFn()
         }
         private emitgrid (): void {// 根据初始化的数独面板生成可使用的数独
             this.grid.build()
@@ -72,9 +82,14 @@
         private initGrid (level: number): void {// 初始化数独面板
             this.grid = new Grid(0, 9, level)
             this.emitgrid()
+            if(this.timer) {
+                clearInterval(this.timer)
+            }
+            this.setUseTime()
         }
         private levelChange (): void {// 每次切换数独难度等级后，重新初始化数独对象
             localStorage.setItem('fremember_dataStatistics_sudo_level', this.levelNumber)
+            this.useTimeStr = '00:00:00'
             this.initGrid(this.levelNumber)
         }
         /**
@@ -154,7 +169,30 @@
                     }
                     break
                 case 2:// 全局检查用户输入内容是否合法
-                    this.grid.check()// 验证输入
+                    if(this.grid.check()) {// 验证输入
+                        clearInterval(this.timer)
+                        this.timer = null
+                        // 这里可以调用接口，返回当前等级下的时间排名
+                        this.sudo({ username: this.username, levelNumber: this.levelNumber, useTime: this.useTime })
+                        .then((d: any): void => {
+                            if(d.data.code == 0) {
+                                let _label = ''
+                                this.levelList.forEach(v => {
+                                    if(v.value === this.levelNumber) {
+                                        _label = v.label
+                                    }
+                                })
+                                this.$message.success(`恭喜您，挑战成功，您在${_label}场的排名是${d.data.data.index}`)
+                            } else {
+                                this.$message.warning(d.data.message)
+                            }
+                        })
+                        .catch((err: any): void => {
+                            console.log(err)
+                        })
+                    } else {
+                        this.$message.warning('挑战失败，请继续')
+                    }
                     break
                 case 3:// 将填入的所有数据置空，如果有颜色标记也清除
                     this.grid.reset()
@@ -166,6 +204,7 @@
                     this.grid.prevStep()
                     break
                 case 6:// 重新初始化整个数据盘
+                    this.useTimeStr = '00:00:00'
                     this.initGrid(this.levelNumber)
                     break
             }
@@ -173,6 +212,13 @@
         }
         private storageGrid () {
             localStorage.setItem('fremember_dataStatistics_sudo_grid', JSON.stringify(this.pazzleMatrix))
+        }
+        private setUseTime () {
+            this.useTime = 0
+            this.timer = setInterval(() => {
+                this.useTimeStr = this.commonFn.useTime(this.useTime)
+                this.useTime++
+            }, 1000)
         }
     }
 </script>
@@ -193,7 +239,7 @@
                 margin-bottom(20px)
             }
             .pazzle-matrix {
-                margin-bottom(100px)
+                margin-bottom(60px)
                 // height(calc(100vh - 200px))
                 .sudo-wrapper {
                     div {
@@ -295,6 +341,9 @@
                             border-right: none
                         }
                     }
+                }
+                .use-time {
+                    margin-top(60px)
                 }
             }
             .operate-btns {

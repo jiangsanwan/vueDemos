@@ -15,9 +15,13 @@
 </template>
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator'
+    import { State, Getter, Action, Mutation, namespace } from 'vuex-class'
+
+    let userModule = namespace('user')
+    
     @Component
     export default class CommonHeader extends Vue {
-        private username:String = 'fremember'
+        @userModule.State(state => state.username) username?: string
     }
 </script>
 <style lang="stylus">
