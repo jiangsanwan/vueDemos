@@ -11,6 +11,9 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 
+// 初始化状态 ---> 同步修改
+store.commit('games/SET_LEVELNUMBER', localStorage.getItem('fremember_dataStatistics_sudo_level'))
+
 Vue.config.productionTip = false
 
 new Vue({

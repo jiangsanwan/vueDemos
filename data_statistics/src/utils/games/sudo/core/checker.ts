@@ -3,7 +3,7 @@ function checkArray(array: number[]): boolean[] {
 	let length = array.length,
 		marks:boolean[] = new Array(length);
 	marks.fill(true)
-	for(let i = 0; i < length - 1; i++) {
+	for(let i = 0; i <= length - 1; i++) {
 		if(!marks[i]) {
 			continue;
 		}
@@ -25,7 +25,7 @@ function checkArray(array: number[]): boolean[] {
 
 import Toolkit from './toolkit'
 
-// 输入：用户完成的数独数据，9 x 9
+// 输入：用户完成的数独数据
 // 处理：对matrix 行、列、宫进行检查，并填写marks
 // 输出：检查是否成功，marks
 export class Checker {
@@ -81,10 +81,10 @@ export class Checker {
 	}
 	private checkBoxes() {
 		let _item: number = Math.pow(this._len, 0.5)
-		for(let boxIndex = 0; boxIndex < 9; boxIndex++) {
+		for(let boxIndex = 0; boxIndex < this._len; boxIndex++) {
 			let boxes = Toolkit.box.getBoxCells(this._matrix, boxIndex, _item,this._len),
 				marks = checkArray(boxes);
-			for(let cellIndex = 0; cellIndex < 9; cellIndex++) {
+			for(let cellIndex = 0; cellIndex < this._len; cellIndex++) {
 				if(!marks[cellIndex]) {
 					let {rowIndex, colIndex} = Toolkit.box.convertFromBoxIndex(boxIndex, cellIndex, _item)
 					this._matrixMarks[rowIndex][colIndex] = false
