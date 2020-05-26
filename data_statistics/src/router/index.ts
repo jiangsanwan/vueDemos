@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 
 import gameRouter from './modules/games'
+import editRouter from './modules/edits'
+import echertRouter from './modules/echarts'
+import highchartsRouter from './modules/highcharts'
 
 Vue.use(VueRouter)
 
@@ -27,7 +30,10 @@ const routes: Array<RouteConfig> = [
             }
         ]
     },
-    gameRouter
+    gameRouter,
+    editRouter,
+    echertRouter,
+    highchartsRouter
 ]
 
 
