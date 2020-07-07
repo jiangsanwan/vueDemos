@@ -9,23 +9,31 @@
 .dib {
     display: inline-block;
 }
-body {
-    width: 100vw;
-    height: 100vh;
-    background: #1d2024;
+.mb40px {
+    margin-bottom: 40px;
 }
-.title {
+.mb20px {
     margin-bottom: 20px;
+}
+.mb10px {
+    margin-bottom: 10px;
+}
+
+.title {
     font-size: 24px;
 }
 .info {
-    margin-bottom: 40px;
+    line-height: 20px;
     font-size: 14px;
     color: #999;
 }
+
+.info a:hover {
+    color: #7fff00;
+}
 .sub-title {
     margin-bottom: 10px;
-    font-size: 20px;
+    font-size: 16px;
 }
 .code-box {
     border: 1px solid #fffff0;

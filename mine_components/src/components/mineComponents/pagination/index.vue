@@ -1,20 +1,20 @@
 <template>
     <ul class="mine-pagination">
         <li>
-            <div>
-                显示 {{ total > 0 ? size * (num - 1) + 1 : 0 }}-{{ size * num < total ? size * num : total }} 项<span class="ml20px">共 {{ total }} 项</span>
-            </div>
+            <span v-if="layoutArr.includes('number')">显示 {{ total > 0 ? size * (num - 1) + 1 : 0 }}-{{ size * num < total ? size * num : total }} 项</span>
+            <span class="ml20px" v-if="layoutArr.includes('total')">共 {{ total }} 项</span>
         </li>
         <li class="page-item">
             <div class="s-wrapper" v-show="pageSizes">
-                <div class="cont" @click="showSelect = true">{{ size }}条/页</div>
+                <div class="cont" @click="showSelect = true" >{{ size }}条/页</div>
                 <ul v-show="showSelect">
                     <li :class="{'active': size == item.value}" v-for="(item, idx) in sizes" :key="idx" @click="selectFn(item)">{{ item.label }}</li>
                 </ul>
             </div>
-            <div class="n-p" :class="{'disabled': num == 1, 'cursorp': num != 1}" @click="setCurrent(num - 1)">上一页</div>
-            <div class="cursorp" v-for="(p, idx) in grouplist" :key="idx" :class="{'active': num == p.val}" @click="setCurrent(p.val)"> {{ p.text }} </div>
-            <div class="n-p" :class="{'disabled': num == page, 'cursorp': num != page}" @click="setCurrent(num + 1)">下一页</div>
+            <div class="n-p b-r-none" :class="{'disabled': num == 1, 'cursorp': num != 1}" @click="setCurrent(num - 1)" v-if="layoutArr.includes('prev')">{{ prevText ? prevText : '<<' }}</div>
+            <div class="cursorp b-r-none" v-for="(p, idx) in grouplist" :key="idx" :class="{'active': num == p.val, 'has-b-r': idx == grouplist.length - 1 && !layoutArr.includes('next')}" @click="setCurrent(p.val)"> {{ p.text }} </div>
+            <div class="n-p" :class="{'disabled': num == page, 'cursorp': num != page}" @click="setCurrent(num + 1)" v-if="layoutArr.includes('next')">{{ nextText ? nextText : '>>' }}</div>
+            <div class="jumper" v-if="layoutArr.includes('jumper')">前往<input type="text" v-model="num">页</div>
         </li>
     </ul>
 </template>
@@ -33,6 +33,18 @@
 			}
 		},
 		props: {
+            layout: {
+                type: String,
+                default: ''
+			},
+			prevText: {// 上一页按钮文字
+                type: String,
+                default: ''
+			},
+			nextText: {// 下一页按钮文字
+                type: String,
+                default: ''
+			},
 			total: {// 数据总条数
 				type: Number,
 				default: 0
@@ -59,6 +71,11 @@
 			}
 		},
 		computed: {
+            layoutArr () {
+                if(this.layout) {
+                    return this.layout.split(', ')
+                }
+            },
 			sizes () {// 初始化每页显示条数下拉列表
 				if(!this.pageSizes) return null;
 				let res = [];
@@ -75,6 +92,7 @@
 			}
 		},
 		mounted() {
+            console.log(this.layoutArr)
 			this.size = this.pageSize;
 			this.num = this.pageNum;
 			this.grouplist = this._grouplist();
@@ -152,7 +170,7 @@
 					font-size: 14px;
 					color: #666;
 					border: 1px solid #e6e6e6;
-					border-right: none;
+					
 					&.n-p {
 						padding: 0 20px;
 						&:first-child {
@@ -179,7 +197,6 @@
 						border-right: 1px solid #e6e6e6;
 						padding: 0;
 						width: 120px;
-						height: 34px;
 						line-height: 34px;
 						border-radius: 3px;
 						div {
@@ -209,6 +226,23 @@
 							}
 						}
 					}
+                    &.jumper {
+                        display: flex;
+                        margin-left: 20px;
+                        padding: 0;
+                        width: 118px;
+                        border: none;
+                        input {
+                            margin: 0 4px;
+                            width: calc(100% - 50px);
+                        }
+                    }
+                    &.b-r-none {
+                        border-right: none;
+						&.has-b-r {
+							border-right: 1px solid #e6e6e6;
+						}
+                    }
 				}
 			}
 		}

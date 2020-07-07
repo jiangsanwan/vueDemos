@@ -13,15 +13,17 @@
 </template>
 
 <script type="text/ecmascript-6">
+    import { mapState } from 'vuex'
     export default {
         name: 'CommonHeader',
+        computed: {
+            ...mapState({
+                hcMenu: state => state.hcMenu
+            })
+        },
         data () {
             return {
                 inputValue: '',
-                hcMenu: [
-                    { link: '/introduce', text: '介绍' },
-                    { link: '/home', text: '常用组件' }
-                ]
             }
         }
     }

@@ -7,18 +7,16 @@
 </template>
 
 <script type="text/ecmascript-6">
+    import { mapState } from 'vuex'
     export default {
         name: 'SideBar',
-        data () {
-            return {
-                routerList: [
-                    { link: '/home/pagination', text: '分页' },
-                    { link: '/home/slider', text: '滑块' }
-                ]
-            }
+        computed: {
+            ...mapState({
+                routerList: state => state.routerList
+            })
         },
-        mounted () {
-            console.log(this.$route.path)
+        data () {
+            return {}
         }
     }
 </script>
