@@ -11,7 +11,7 @@
 			return {}
 		},
 		mounted () {
-			this.$store.commit('SET_SHOWMINEFOOTER', true)
+			sessionStorage.setItem('vuezhaopin_showminefooter', true)
 		},
 		methods: {
 		}

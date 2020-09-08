@@ -1,6 +1,5 @@
 <template>
     <div class="webview">
-        <!-- <mine-header></mine-header> -->
         <section :class="{'b60px': showMineFooter, 'b0': !showMineFooter}" ref="webview">
             <router-view/>
         </section>
@@ -8,12 +7,10 @@
     </div>
 </template>
 <script>
-    // import mineHeader from '@/components/mine-header/index'
     import mineFooter from '@/components/mine-footer/index'
     export default {
         name: 'Webview',
         components: {
-            // mineHeader,
             mineFooter
         },
         computed: {

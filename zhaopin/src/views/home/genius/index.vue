@@ -5,7 +5,6 @@
 			<mt-spinner class="flex-center" v-show="dataLists.length == 0 && InitialLoading" color="#26a2ff" type="fading-circle"></mt-spinner>
 			<mt-loadmore :top-method="loadTop" @top-status-change="handleTopChange" :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
 				<ul class="position-wrapper">
-					<!-- <li v-for="item in dataLists" :key="item._id" @click="$router.push(`/positionDetail/${item._id}`)"> -->
 					<li v-for="item in dataLists" :key="item._id" @click="gotoDetail(item._id)">
 						<div class="position-title">
 							<p class="t">{{ item.title }}</p>
@@ -75,7 +74,7 @@
 			}
 		},
 		mounted () {
-			this.$store.commit('SET_SHOWMINEFOOTER', true)
+			sessionStorage.setItem('vuezhaopin_showminefooter', true)
 			this.wrapperHeight = document.documentElement.clientHeight - 60 - 80
 			this.loadTop()
 		},

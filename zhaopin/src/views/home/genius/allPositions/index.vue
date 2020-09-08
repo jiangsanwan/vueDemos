@@ -134,7 +134,7 @@
 		},
 		methods: {
 			_initCommon () {
-				this.$store.commit('SET_SHOWMINEFOOTER', false)
+				sessionStorage.setItem('vuezhaopin_showminefooter', false)
 				this.wrapperHeight = document.documentElement.clientHeight - 40 - 176 - 52.5
 				this._initUserInfo()
 				this.loadTop()

@@ -45,7 +45,7 @@
 		},
 		methods: {
 			_initGetMsgList () {// 获取用户聊天列表
-				this.$store.commit('SET_SHOWMINEFOOTER', true)
+				sessionStorage.setItem('vuezhaopin_showminefooter', true)
 				socket.emit('getChatList', { to: this.to, from: this.to })
 			},
 			chengeReadEvent (item) {

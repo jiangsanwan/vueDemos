@@ -53,7 +53,7 @@
 			}
 		},
 		mounted () {
-			this.$store.commit('SET_SHOWMINEFOOTER', false)
+			sessionStorage.setItem('vuezhaopin_showminefooter', false)
 		},
 		methods: {
 			checkInput (attr, msg) {

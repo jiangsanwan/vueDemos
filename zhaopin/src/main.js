@@ -23,6 +23,7 @@ Object.keys(filters).forEach(key => {
 	Vue.filter(key, filters[key])
 })
 
+store.commit('SET_SHOWMINEFOOTER', sessionStorage.getItem('vuezhaopin_showminefooter') == 'false' ? false : true)
 Vue.config.productionTip = false
 
 new Vue({

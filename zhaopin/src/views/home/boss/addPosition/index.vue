@@ -82,7 +82,7 @@
 			}
 		},
 		mounted () {
-			this.$store.commit('SET_SHOWMINEFOOTER', false)
+			sessionStorage.setItem('vuezhaopin_showminefooter', false)
 			if((this.publicObj != null && this.publicObj.type != 'Boss') || this.publicObj == null) {
 				this.$router.push('/login')
 				sessionStorage.clear()
