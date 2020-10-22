@@ -6,6 +6,5 @@
 
 
 # 项目列表
-+ [ 自用组件列表 ](https://github.com/fremember/vueDemos/tree/master/mine_components) 
-+ [ 招聘项目 ](https://github.com/fremember/vueDemos/tree/master/zhaopin) 
-+ [ VUE+TS项目 ](https://github.com/fremember/vueDemos/tree/master/data_statistics) 
++ [ 招聘项目 vue2.x版本 ](https://github.com/fremember/vueDemos/tree/master/zhaopin)
++ [ 管理后台 vue3.x版本 ](https://github.com/fremember/vueDemos/tree/master/vue-admin) 
