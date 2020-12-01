@@ -14,6 +14,14 @@ export function filterRoleRoutes (routes) {
                 route.children = filterRoleRoutes(route.children)
             return route
         })
+        .map(route => {
+            if (route.children && route.children.length) {
+                route.children.map(r => {
+                    r.fullPath = `${route.path}/${r.path}`
+                })
+            }
+            return route
+        })
 }
 /**
  * 将路由数组转成合法的路由数组

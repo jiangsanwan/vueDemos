@@ -15,6 +15,7 @@ let dashboardRouter = {
             component: () => import('@/views/dashboard/index'),
             meta: {
                 title: '首页',
+                componentName: 'HomeOutlined',
                 type: 1,
                 noCache: true,
                 roles: ['admin']

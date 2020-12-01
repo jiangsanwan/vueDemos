@@ -1,0 +1,11 @@
+@charset "UTF-8";
+.echarts-has-triangle div:not(:first-child):not(:empty):after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%);
+    border-top: 6px solid rgba(0, 0, 0, .7);
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+}

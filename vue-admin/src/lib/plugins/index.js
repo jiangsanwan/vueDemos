@@ -35,7 +35,7 @@ router.beforeEach(async (to, from, next) => {
                     if(validAddress(accessRoutes, to.path)) {
                         next({ ...to, replace: true })
                     } else {
-                        next({ path: '/404', replace: true })
+                        next({ path: '/error/404', replace: true })
                     }
                 } catch(e) {
                     await store.dispatch('user/resetAll')

@@ -22,11 +22,17 @@
 .ai-s {
 	align-items: flex-start;
 }
+.ai-e {
+	align-items: flex-end;
+}
 .jc-c {
 	justify-content: center;
 }
 .jc-s {
 	justify-content: space-between;
+}
+.jc-e {
+	justify-content: flex-end;
 }
 
 .db {
@@ -102,6 +108,36 @@
 label.db {
 	padding: 10px 0;
 }
+.mt20px {
+	margin-top: 20px;
+}
 .mb22px {
 	margin-bottom: 22px;
+}
+.mb4px {
+	margin-bottom: 4px;
+}
+.ml10px {
+	margin-left: 10px;
+}
+.pad-lr-20px {
+	padding: 0 20px;
+}
+.w100 {
+	width: 100%
+}
+.black45 {
+	color: rgba(0, 0, 0, .45)
+}
+.color00f {
+	color: #00f;
+}
+.color1890ff {
+	color: #1890ff;
+}
+.color87000c {
+	color: #87000c;
+}
+.colorf00 {
+	color: #f00;
 }

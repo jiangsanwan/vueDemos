@@ -4,7 +4,7 @@
 		<div class="pos-f content">
 			<p class="l-title">Login</p>
 			<p class="more-info">开启vue3.0+antd体验的第一站</p>
-			<a-form ref="ruleForm" :model="form" :rules="rules">
+			<a-form :ref="ruleForm" :model="form" :rules="rules">
 				<a-form-item name="username">
 					<a-input v-model:value="form.username" placeholder="请输入手机号">
 						<template v-slot:prefix>
@@ -49,6 +49,10 @@
 					userpwd: '',
 					verificationCode: ''
 				}),
+				ruleFormRef = null,
+				ruleForm = el => {
+					ruleFormRef = el
+				},
 				ajaxResult = ref(null),
 				// eslint-disable-next-line
 				usernameCheck = async (rule, value, callback) => {
@@ -87,11 +91,17 @@
 				handleRoute = () => {
 					ctx.$router.push('/dashboard')
 				},
-				onSubmit = async () => {
-					let data = { ...form.value }
-					data.userpwd = sha256(data.userpwd)
-					await store.dispatch('user/login', data)
-					await handleRoute()
+				onSubmit = () => {
+					ruleFormRef.validate()
+					.then(async () => {
+						let data = { ...form.value }
+						data.userpwd = sha256(data.userpwd)
+						await store.dispatch('user/login', data)
+						await handleRoute()
+					})
+					.catch(err => {
+						console.log(err)
+					})
 				};
 			onBeforeUnmount(() => {
 				if(timer.value) {
@@ -102,6 +112,7 @@
 			return {
 				form,
 				rules,
+				ruleForm,
 				ajaxResult,
 				callback,
 				onSubmit

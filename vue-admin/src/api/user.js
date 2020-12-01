@@ -58,3 +58,13 @@ export function getUserInfo () {
         method: 'post'
     })
 }
+/**
+ * 获取用户列表
+ */
+export function getUserList (data) {
+    return request({
+        url: `${api}/user/getUserList`,
+        method: 'post',
+        data
+    })
+}

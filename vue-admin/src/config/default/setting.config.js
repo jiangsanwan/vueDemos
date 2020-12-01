@@ -27,7 +27,7 @@ const setting = {
   //缓存路由的最大数量
   keepAliveMaxNum: 99,
   //不经过token校验的路由
-  routesWhiteList: ['/login', '/register', '/404', '/403'],
+  routesWhiteList: ['/', '/login', '/register', '/404', '/403'],
   //加载时显示文字
   loadingText: '正在加载中...',
   //token名称
@@ -40,8 +40,8 @@ const setting = {
   storage: 'localStorage',
   //token失效回退到登录页时是否记录本次的路由
   recordRoute: true,
-  //是否显示logo，不显示时设置false，显示时请填写remixIcon图标名称，暂时只支持设置remixIcon
-  logo: 'vuejs-fill',
+  //是否显示logo
+  logo: 'BulbOutlined',
   //是否开启登录拦截
   loginInterception: true,
   //需要加loading层的请求，防止重复提交

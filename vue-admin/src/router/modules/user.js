@@ -5,7 +5,9 @@ let userRouter = {
     redirect: '/user/index',
     meta: {
         noCache: true,
-        roles: ['admin']
+        title: '用户管理',
+        roles: ['admin'],
+        componentName: 'SolutionOutlined'
     },
     children: [
         {
@@ -14,6 +16,7 @@ let userRouter = {
             component: () => import('@/views/user/index/index'),
             meta: {
                 title: '用户列表',
+                componentName: 'UserOutlined',
                 type: 1,
                 noCache: true,
                 roles: ['admin']
@@ -25,6 +28,7 @@ let userRouter = {
             component: () => import('@/views/user/role/index'),
             meta: {
                 title: '角色权限',
+                componentName: 'TeamOutlined',
                 type: 2,
                 noCache: true,
                 roles: ['admin']

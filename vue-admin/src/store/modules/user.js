@@ -1,7 +1,7 @@
 /**
  * 登录、获取用户信息、退出登录、清除accessToken逻辑
  */
-import { getUserInfo, login, logout } from '@/api/user'
+import { getUserInfo, login, logout, getUserList } from '@/api/user'
 import { getAccessToken, removeAccessToken, setAccessToken } from '@/utils/accessToken'
 import { title, tokenName, roleName } from '@/config'
 import { message, notification } from 'ant-design-vue'
@@ -10,13 +10,17 @@ let state = {
         accessToken: getAccessToken(),
         username: '',
         rolename: '',
-        avatar: ''
+        avatar: '',
+        userList: [],
+        total: 0
     },
     getters = {
         accessToken: state => state.accessToken,
         username: state => state.username,
         rolename: state => state.rolename,
-        avatar: state => state.avatar
+        avatar: state => state.avatar,
+        userList: state => state.userList,
+        total: state => state.total
     },
     mutations = {
         setAccessToken (state, accessToken) {// 设置accessToken
@@ -31,6 +35,12 @@ let state = {
         },
         setAvatar (state, avatar) {// 设置头像
             state.avatar = avatar
+        },
+        setUserList (state, list) {// 设置用户列表
+            state.userList = list
+        },
+        setTotal (state, total) {
+            state.total = total
         }
     },
     actions = {
@@ -41,6 +51,8 @@ let state = {
             if (accessToken) {
                 commit('setAccessToken', accessToken)
                 commit('setRolename', rolename || '')
+                commit('setUsername', data.username)
+                commit('setAvatar', data.avatar)
                 let hour = new Date().getHours(),
                     thisTime = hour < 8 ? '早上好' : hour <= 11 ? '上午好' : hour <= 13 ? '中午好' : hour < 18 ? '下午好' : '晚上好';
                 notification.open({
@@ -76,6 +88,17 @@ let state = {
         },
         setAccessToken ({ commit }, accessToken) {// 设置accessToken
             commit('setAccessToken', accessToken)
+        },
+        async getUserList ({ commit }, queryObj) {
+            let { data } = await getUserList(queryObj)
+            commit('setUserList', data.list)
+            commit('setTotal', data.total)
+        },
+        testActions ({ commit }, num) {
+            setTimeout(() => {
+                commit('setTotal', num)
+                console.log(num)
+            }, 2000)
         }
     };
 
